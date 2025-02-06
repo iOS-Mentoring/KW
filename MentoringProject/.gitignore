@@ -98,7 +98,6 @@ iOSInjectionProject/
 ## Xcode 8 and earlier
 
 ### Xcode Patch ###
-*.xcuserstate
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
@@ -106,5 +105,8 @@ iOSInjectionProject/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+
+# Ignore Xcode user-specific settings
+*.xcuserstate
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,cocoapods
