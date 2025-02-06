@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icon_double_quotes.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
