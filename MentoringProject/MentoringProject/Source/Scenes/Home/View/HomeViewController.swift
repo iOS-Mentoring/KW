@@ -42,6 +42,7 @@ class HomeViewController: BaseViewController {
     }()
     
     private let typingSpeedView = TypingSpeedView()
+    private let descriptionView = DescriptionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,8 @@ class HomeViewController: BaseViewController {
         setupNavigationBar()
         setupSpeedView()
         setupTypingTextField()
+        
+        typingTextView.inputAccessoryView = descriptionView
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,8 +84,6 @@ extension HomeViewController {
         
         typingTextView.delegate = self
     }
-    
-    // TODO: 키보드에 붙은 뷰 구현
 }
 
 extension HomeViewController {
