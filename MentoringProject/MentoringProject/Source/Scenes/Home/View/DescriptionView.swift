@@ -8,7 +8,6 @@
 import UIKit
 
 class DescriptionView: UIView {
-    
     let lineView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -43,9 +42,7 @@ class DescriptionView: UIView {
         imageView.image = .iconLink
         return imageView
     }()
-    
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupDescriptionView()
@@ -56,14 +53,20 @@ class DescriptionView: UIView {
         setupDescriptionView()
     }
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 56)
+    }
+    
     func setupDescriptionView() {
-        self.backgroundColor = .gray200
-        self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 56)
+        backgroundColor = .gray200
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(subTitleLabel)
         
-        self.addSubview(imageView, autoLayout: [.trailing(20), .centerY(0)])
-        self.addSubview(lineView, autoLayout: [.leading(0), .trailing(0), .top(0), .height(1)])
-        self.addSubview(stackView, autoLayout: [.leading(20), .centerY(0)])
+        addSubview(imageView, autoLayout: [.trailing(20), .centerY(0)])
+        addSubview(lineView, autoLayout: [.leading(0), .trailing(0), .top(0), .height(1)])
+        addSubview(stackView, autoLayout: [.leading(20), .top(11), .bottom(11), .centerY(0)])
     }
 }

@@ -50,12 +50,13 @@ class HomeViewController: BaseViewController {
         setupNavigationBar()
         setupSpeedView()
         setupTypingTextField()
-        
-        typingTextView.inputAccessoryView = descriptionView
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    
+        setupDescriptionView()
         typingTextView.becomeFirstResponder()
     }
 }
@@ -77,12 +78,21 @@ extension HomeViewController {
     
     // 텍스트 뷰 세팅
     func setupTypingTextField() {
+        typingTextView.delegate = self
+        
         view.addSubview(typingPlaceholderTextView, autoLayout: [.leading(0), .trailing(0), .topNext(to: typingSpeedView, constant: 0), .bottom(0)])
         view.addSubview(typingTextView, autoLayout: [.leading(0), .trailing(0), .topNext(to: typingSpeedView, constant: 0), .bottom(0)])
         
         typingPlaceholderTextView.setLineSpacing(10, textColor: .gray300)
+    }
+    
+    //
+    func setupDescriptionView() {
+        typingTextView.inputAssistantItem.leadingBarButtonGroups = []
+        typingTextView.inputAssistantItem.trailingBarButtonGroups = []
         
-        typingTextView.delegate = self
+        typingTextView.inputAccessoryView = descriptionView
+        typingTextView.reloadInputViews()
     }
 }
 
