@@ -103,8 +103,8 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        textView.setLineSpacing(10, textColor: .primaryRed)
-    }
-}
+//extension HomeViewController: UITextViewDelegate {
+//    func textViewDidChange(_ textView: UITextView) {
+//        textView.setLineSpacing(10, textColor: .primaryRed)
+//    }
+//}
