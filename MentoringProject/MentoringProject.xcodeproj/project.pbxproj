@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		164E03282D563A0E0029C7AD /* CustomNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03272D563A0E0029C7AD /* CustomNavigationBarView.swift */; };
-		164E032E2D563AA40029C7AD /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E032D2D563AA40029C7AD /* TestViewController.swift */; };
+		164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E032D2D563AA40029C7AD /* HistoryViewController.swift */; };
 		164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03302D563AB20029C7AD /* BaseViewController.swift */; };
 		164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03322D563AC10029C7AD /* DescriptionView.swift */; };
 		164E03352D563AC50029C7AD /* TypingSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03342D563AC50029C7AD /* TypingSpeedView.swift */; };
@@ -81,7 +81,7 @@
 
 /* Begin PBXFileReference section */
 		164E03272D563A0E0029C7AD /* CustomNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarView.swift; sourceTree = "<group>"; };
-		164E032D2D563AA40029C7AD /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		164E032D2D563AA40029C7AD /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		164E03302D563AB20029C7AD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		164E03322D563AC10029C7AD /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		164E03342D563AC50029C7AD /* TypingSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingSpeedView.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		164E032C2D563AA40029C7AD /* Temp */ = {
 			isa = PBXGroup;
 			children = (
-				164E032D2D563AA40029C7AD /* TestViewController.swift */,
+				164E032D2D563AA40029C7AD /* HistoryViewController.swift */,
 			);
 			name = Temp;
 			path = MentoringProject/Source/Temp;
@@ -552,7 +552,7 @@
 				164E03282D563A0E0029C7AD /* CustomNavigationBarView.swift in Sources */,
 				16F504CA2D54AB2800EE67F0 /* UIScreen+size.swift in Sources */,
 				164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */,
-				164E032E2D563AA40029C7AD /* TestViewController.swift in Sources */,
+				164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */,
 				16F504C52D54AB2800EE67F0 /* UILabel+estimatedSize.swift in Sources */,
 				16F504C82D54AB2800EE67F0 /* UIImageView+animation.swift in Sources */,
 				16F504A12D54AB2000EE67F0 /* Collection+Index.swift in Sources */,
