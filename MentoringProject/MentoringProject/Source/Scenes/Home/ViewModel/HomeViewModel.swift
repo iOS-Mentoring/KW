@@ -42,11 +42,11 @@ class HomeViewModel: ObservableObject {
         Publishers.CombineLatest($inputStr, timerManager.$elapsedTime)
             .sink { [weak self] input, elapsed in
                 guard let self = self else { return }
-                let count = input.count
-                let computedWPM = self.calculator.calculateWPM(count: count, elapsedTime: elapsed)
-                self.typingSpeed = TypingSpeedModel(characterCount: count, wpm: computedWPM)
+                let correctCount = self.typingValidator.correctCharacterCount(for: input)
+                let computedWPM = self.calculator.calculateWPM(count: correctCount, elapsedTime: elapsed)
+                self.typingSpeed = TypingSpeedModel(characterCount: correctCount, wpm: computedWPM)
                 
-                print("입력된 문자 수: \(count), 경과 시간: \(elapsed)초, WPM: \(computedWPM)")
+                print("입력된 문자 수: \(correctCount), 경과 시간: \(elapsed)초, WPM: \(computedWPM)")
             }
             .store(in: &cancellables)
         
