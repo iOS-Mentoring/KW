@@ -52,4 +52,19 @@ class TypingValidator {
         
         return result
     }
+    
+    func correctCharacterCount(for input: String) -> Int {
+        var correctCount = 0
+        
+        for (index, char) in input.enumerated() {
+            guard index < placeholder.count else { break }
+            let placeholderIndex = placeholder.index(placeholder.startIndex, offsetBy: index)
+            let correctChar = placeholder[placeholderIndex]
+            
+            if char == correctChar {
+                correctCount += 1
+            }
+        }
+        return correctCount
+    }
 }
