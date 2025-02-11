@@ -5,6 +5,7 @@
 //  Created by PKW on 2/6/25.
 //
 
+import Combine
 import UIKit
 
 class HomeViewController: BaseViewController {
@@ -19,7 +20,6 @@ class HomeViewController: BaseViewController {
     private let typingPlaceholderTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .gray200
-        textView.text = "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
         textView.font = UIFont.pretendard(type: .pretendardMedium, size: 20)
         
         textView.isUserInteractionEnabled = false
@@ -44,13 +44,17 @@ class HomeViewController: BaseViewController {
     private let typingSpeedView = TypingSpeedView()
     private let descriptionView = DescriptionView()
     
+    private let viewModel = HomeViewModel()
+    private var cancellables = Set<AnyCancellable>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
         setupSpeedView()
         setupTypingTextField()
-       
+        
+        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +62,32 @@ class HomeViewController: BaseViewController {
     
         setupDescriptionView()
         typingTextView.becomeFirstResponder()
+    }
+    
+    private func bindViewModel() {
+        viewModel.$typingSpeed
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] speedModel in
+                guard let self = self else { return }
+                self.typingSpeedView.speedLabel.text = "\(speedModel.wpm)"
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$elapsedTime
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] time in
+                guard let self = self else { return }
+                self.typingSpeedView.timeLabel.text = "\(time)"
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$attributedStr
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attStr in
+                guard let self = self else { return }
+                self.typingTextView.attributedText = attStr
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -80,13 +110,14 @@ extension HomeViewController {
     func setupTypingTextField() {
         typingTextView.delegate = self
         
+        typingPlaceholderTextView.text = viewModel.typingStr
+        
         view.addSubview(typingPlaceholderTextView, autoLayout: [.leading(0), .trailing(0), .topNext(to: typingSpeedView, constant: 0), .bottom(0)])
         view.addSubview(typingTextView, autoLayout: [.leading(0), .trailing(0), .topNext(to: typingSpeedView, constant: 0), .bottom(0)])
         
         typingPlaceholderTextView.setLineSpacing(10, textColor: .gray300)
     }
     
-    //
     func setupDescriptionView() {
         typingTextView.inputAssistantItem.leadingBarButtonGroups = []
         typingTextView.inputAssistantItem.trailingBarButtonGroups = []
@@ -105,6 +136,7 @@ extension HomeViewController {
 
 extension HomeViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        textView.setLineSpacing(10, textColor: .primaryRed)
+//        textView.setLineSpacing(10, textColor: .primaryRed)
+        viewModel.inputStr = textView.text ?? ""
     }
 }
