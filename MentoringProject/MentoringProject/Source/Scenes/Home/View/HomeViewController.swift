@@ -77,7 +77,7 @@ class HomeViewController: BaseViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] time in
                 guard let self = self else { return }
-                self.typingSpeedView.timeLabel.text = "\(time)"
+                self.typingSpeedView.timeLabel.text = "\(time.formattedTime())"
             }
             .store(in: &cancellables)
         

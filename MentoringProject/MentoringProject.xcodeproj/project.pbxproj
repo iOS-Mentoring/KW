@@ -57,6 +57,7 @@
 		16F6FABF2D5B28BF00A66456 /* TypingSpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */; };
 		16F6FAC12D5B2BC300A66456 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC02D5B2BC300A66456 /* TimerManager.swift */; };
 		16F6FAC32D5B31C600A66456 /* TypingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC22D5B31C400A66456 /* TypingValidator.swift */; };
+		16F6FAC72D5B435200A66456 /* TimeInterval+convertTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC62D5B435200A66456 /* TimeInterval+convertTime.swift */; };
 		16F88F4D2D5487E200BF7CDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F4C2D5487E200BF7CDE /* AppDelegate.swift */; };
 		16F88F4F2D5487E200BF7CDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F4E2D5487E200BF7CDE /* SceneDelegate.swift */; };
 		16F88F642D5487E500BF7CDE /* MentoringProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F632D5487E500BF7CDE /* MentoringProjectTests.swift */; };
@@ -133,6 +134,7 @@
 		16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypingSpeedCalculator.swift; path = MentoringProject/Source/Models/TypingSpeedCalculator.swift; sourceTree = SOURCE_ROOT; };
 		16F6FAC02D5B2BC300A66456 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerManager.swift; path = MentoringProject/Source/Models/TimerManager.swift; sourceTree = SOURCE_ROOT; };
 		16F6FAC22D5B31C400A66456 /* TypingValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingValidator.swift; sourceTree = "<group>"; };
+		16F6FAC62D5B435200A66456 /* TimeInterval+convertTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+convertTime.swift"; sourceTree = "<group>"; };
 		16F88F492D5487E200BF7CDE /* MentoringProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MentoringProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F88F4C2D5487E200BF7CDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16F88F4E2D5487E200BF7CDE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				164E03362D563AE90029C7AD /* UITextView+lineSpacing.swift */,
+				16F6FAC62D5B435200A66456 /* TimeInterval+convertTime.swift */,
 				16F504A62D54AB2800EE67F0 /* UIExtension */,
 				16F504992D54AB2000EE67F0 /* Extension */,
 			);
@@ -574,6 +577,7 @@
 				16F504CA2D54AB2800EE67F0 /* UIScreen+size.swift in Sources */,
 				16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */,
 				164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */,
+				16F6FAC72D5B435200A66456 /* TimeInterval+convertTime.swift in Sources */,
 				164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */,
 				16F504C52D54AB2800EE67F0 /* UILabel+estimatedSize.swift in Sources */,
 				16F504C82D54AB2800EE67F0 /* UIImageView+animation.swift in Sources */,
