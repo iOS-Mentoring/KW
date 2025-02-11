@@ -69,7 +69,7 @@ class HomeViewController: BaseViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] speedModel in
                 guard let self = self else { return }
-                self.typingSpeedView.speedLabel.text = "\(speedModel.wpm)"
+                self.typingSpeedView.updateSpeedLabel(wpm: speedModel.wpm)
             }
             .store(in: &cancellables)
         
@@ -136,7 +136,6 @@ extension HomeViewController {
 
 extension HomeViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-//        textView.setLineSpacing(10, textColor: .primaryRed)
         viewModel.inputStr = textView.text ?? ""
     }
 }
