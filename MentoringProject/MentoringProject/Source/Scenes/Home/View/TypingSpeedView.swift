@@ -8,7 +8,7 @@
 import UIKit
 
 class TypingSpeedView: UIView {
-    private let speedLabel: UILabel = {
+    let speedLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.pretendard(type: .pretendardLight, size: 13)
