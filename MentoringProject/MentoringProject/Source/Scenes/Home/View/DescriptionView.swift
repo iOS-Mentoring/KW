@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DescriptionView: UIView {
+final class DescriptionView: UIView {
     let lineView: UIView = {
         let view = UIView()
         view.backgroundColor = .black

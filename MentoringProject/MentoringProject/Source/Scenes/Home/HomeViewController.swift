@@ -9,7 +9,7 @@ import Combine
 import SafariServices
 import UIKit
 
-class HomeViewController: BaseViewController {
+final class HomeViewController: BaseViewController {
     // MARK: 네비게이션바 버튼 설정
     
     private let historyButton: UIButton = {

@@ -8,12 +8,11 @@
 import Combine
 import Foundation
 
-class HomeViewModel: ObservableObject {
+final class HomeViewModel: ObservableObject {
     @Published var inputStr: String = ""
     @Published var attributedStr: NSAttributedString = NSAttributedString(string: "")
     @Published var typingSpeed: TypingSpeedModel = TypingSpeedModel(characterCount: 0, wpm: 0)
     @Published var elapsedTime: TimeInterval = 0
-    
     
     let typingStr: String = "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
     

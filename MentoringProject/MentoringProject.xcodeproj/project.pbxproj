@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		164E03282D563A0E0029C7AD /* CustomNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03272D563A0E0029C7AD /* CustomNavigationBarView.swift */; };
+		164E03282D563A0E0029C7AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03272D563A0E0029C7AD /* NavigationBarView.swift */; };
 		164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E032D2D563AA40029C7AD /* HistoryViewController.swift */; };
 		164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03302D563AB20029C7AD /* BaseViewController.swift */; };
 		164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03322D563AC10029C7AD /* DescriptionView.swift */; };
@@ -92,7 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		164E03272D563A0E0029C7AD /* CustomNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarView.swift; sourceTree = "<group>"; };
+		164E03272D563A0E0029C7AD /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		164E032D2D563AA40029C7AD /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		164E03302D563AB20029C7AD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		164E03322D563AC10029C7AD /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
@@ -188,14 +188,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		164E03242D5639DC0029C7AD /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				164E03272D563A0E0029C7AD /* CustomNavigationBarView.swift */,
-			);
-			path = CustomView;
-			sourceTree = "<group>";
-		};
 		164E032F2D563AB20029C7AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +287,7 @@
 		16F6012F2D631DD900A66456 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				164E03272D563A0E0029C7AD /* NavigationBarView.swift */,
 				16F601302D631DEB00A66456 /* PaddedLabel.swift */,
 			);
 			path = UIComponents;
@@ -368,10 +361,10 @@
 		16F88F7C2D5489B400BF7CDE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				16F6009C2D62F8CE00A66456 /* Summary */,
 				164E032F2D563AB20029C7AD /* Base */,
 				16F6FABA2D5B274C00A66456 /* History */,
 				16F88FD12D548B1200BF7CDE /* Home */,
+				16F6009C2D62F8CE00A66456 /* Summary */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -438,7 +431,7 @@
 		16F88FD12D548B1200BF7CDE /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				164E03242D5639DC0029C7AD /* CustomView */,
+				16F88FD42D548B3400BF7CDE /* HomeViewController.swift */,
 				16F6FABB2D5B284E00A66456 /* Helpers */,
 				16F88FD22D548B1A00BF7CDE /* View */,
 				16F88FD32D548B2300BF7CDE /* ViewModel */,
@@ -451,7 +444,6 @@
 			children = (
 				164E03342D563AC50029C7AD /* TypingSpeedView.swift */,
 				164E03322D563AC10029C7AD /* DescriptionView.swift */,
-				16F88FD42D548B3400BF7CDE /* HomeViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -627,7 +619,7 @@
 				16F600A02D62F8F200A66456 /* SummaryViewController.swift in Sources */,
 				16F6FAC12D5B2BC300A66456 /* TimerManager.swift in Sources */,
 				16F504C72D54AB2800EE67F0 /* Keyboard+combine.swift in Sources */,
-				164E03282D563A0E0029C7AD /* CustomNavigationBarView.swift in Sources */,
+				164E03282D563A0E0029C7AD /* NavigationBarView.swift in Sources */,
 				16F504CA2D54AB2800EE67F0 /* UIScreen+size.swift in Sources */,
 				16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */,
 				164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */,

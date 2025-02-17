@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class TimerManager {
+final class TimerManager {
     @Published var elapsedTime: TimeInterval = 0
     private var timerCancellable: AnyCancellable?
 

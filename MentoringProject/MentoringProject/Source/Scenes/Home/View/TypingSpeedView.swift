@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TypingSpeedView: UIView {
+final class TypingSpeedView: UIView {
     let speedLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white

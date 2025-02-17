@@ -8,7 +8,7 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    let customNavigationBar = CustomNavigationBarView()
+    let customNavigationBar = NavigationBarView()
     
     var navigationTitle: String? {
         get {

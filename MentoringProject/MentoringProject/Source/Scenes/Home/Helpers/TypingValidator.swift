@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TypingValidator {
+final class TypingValidator {
     private let placeholder: String
 
     init(placeholder: String) {
