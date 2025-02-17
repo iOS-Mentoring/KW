@@ -132,8 +132,8 @@ extension HomeViewController {
 
 extension HomeViewController {
     @objc func historyButtonTapped() {
-        let vc = HistoryViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = SummaryViewController()
+        self.present(vc, animated: true)
     }
     
     @objc func linkButtonTapped() {
