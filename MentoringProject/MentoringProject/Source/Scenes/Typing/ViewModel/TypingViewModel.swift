@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class HomeViewModel: ObservableObject {
+final class TypingViewModel {
     @Published var inputStr: String = ""
     @Published var attributedStr: NSAttributedString = NSAttributedString(string: "")
     @Published var typingSpeed: TypingSpeedModel = TypingSpeedModel(characterCount: 0, wpm: 0)

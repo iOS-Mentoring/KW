@@ -60,6 +60,7 @@
 		16F601352D6352AA00A66456 /* SummaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601342D6352AA00A66456 /* SummaryHeaderView.swift */; };
 		16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601362D63538E00A66456 /* SummaryPerformanceView.swift */; };
 		16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601382D63541100A66456 /* SummaryReferenceView.swift */; };
+		16F601F32D63923100A66456 /* TypingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601F22D63923100A66456 /* TypingViewController.swift */; };
 		16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */; };
 		16F6FABF2D5B28BF00A66456 /* TypingSpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */; };
 		16F6FAC12D5B2BC300A66456 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC02D5B2BC300A66456 /* TimerManager.swift */; };
@@ -70,8 +71,7 @@
 		16F88F642D5487E500BF7CDE /* MentoringProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F632D5487E500BF7CDE /* MentoringProjectTests.swift */; };
 		16F88F6E2D5487E500BF7CDE /* MentoringProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F6D2D5487E500BF7CDE /* MentoringProjectUITests.swift */; };
 		16F88F702D5487E500BF7CDE /* MentoringProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F6F2D5487E500BF7CDE /* MentoringProjectUITestsLaunchTests.swift */; };
-		16F88FD52D548B3400BF7CDE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88FD42D548B3400BF7CDE /* HomeViewController.swift */; };
-		16F88FD72D548B3A00BF7CDE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88FD62D548B3A00BF7CDE /* HomeViewModel.swift */; };
+		16F88FD72D548B3A00BF7CDE /* TypingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88FD62D548B3A00BF7CDE /* TypingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +144,7 @@
 		16F601342D6352AA00A66456 /* SummaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeaderView.swift; sourceTree = "<group>"; };
 		16F601362D63538E00A66456 /* SummaryPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPerformanceView.swift; sourceTree = "<group>"; };
 		16F601382D63541100A66456 /* SummaryReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryReferenceView.swift; sourceTree = "<group>"; };
+		16F601F22D63923100A66456 /* TypingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingViewController.swift; sourceTree = "<group>"; };
 		16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingSpeedModel.swift; sourceTree = "<group>"; };
 		16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypingSpeedCalculator.swift; path = MentoringProject/Source/Models/TypingSpeedCalculator.swift; sourceTree = SOURCE_ROOT; };
 		16F6FAC02D5B2BC300A66456 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerManager.swift; path = MentoringProject/Source/Models/TimerManager.swift; sourceTree = SOURCE_ROOT; };
@@ -159,8 +160,7 @@
 		16F88F692D5487E500BF7CDE /* MentoringProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MentoringProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F88F6D2D5487E500BF7CDE /* MentoringProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentoringProjectUITests.swift; sourceTree = "<group>"; };
 		16F88F6F2D5487E500BF7CDE /* MentoringProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentoringProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		16F88FD42D548B3400BF7CDE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		16F88FD62D548B3A00BF7CDE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		16F88FD62D548B3A00BF7CDE /* TypingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,7 +363,7 @@
 			children = (
 				164E032F2D563AB20029C7AD /* Base */,
 				16F6FABA2D5B274C00A66456 /* History */,
-				16F88FD12D548B1200BF7CDE /* Home */,
+				16F88FD12D548B1200BF7CDE /* Typing */,
 				16F6009C2D62F8CE00A66456 /* Summary */,
 			);
 			path = Scenes;
@@ -428,15 +428,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		16F88FD12D548B1200BF7CDE /* Home */ = {
+		16F88FD12D548B1200BF7CDE /* Typing */ = {
 			isa = PBXGroup;
 			children = (
-				16F88FD42D548B3400BF7CDE /* HomeViewController.swift */,
+				16F601F22D63923100A66456 /* TypingViewController.swift */,
 				16F6FABB2D5B284E00A66456 /* Helpers */,
 				16F88FD22D548B1A00BF7CDE /* View */,
 				16F88FD32D548B2300BF7CDE /* ViewModel */,
 			);
-			path = Home;
+			path = Typing;
 			sourceTree = "<group>";
 		};
 		16F88FD22D548B1A00BF7CDE /* View */ = {
@@ -451,7 +451,7 @@
 		16F88FD32D548B2300BF7CDE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				16F88FD62D548B3A00BF7CDE /* HomeViewModel.swift */,
+				16F88FD62D548B3A00BF7CDE /* TypingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -607,13 +607,13 @@
 				16F504A32D54AB2000EE67F0 /* Future+Async.swift in Sources */,
 				16F504C02D54AB2800EE67F0 /* UIViewController+keyboard.swift in Sources */,
 				16F504A02D54AB2000EE67F0 /* Publisher+extension.swift in Sources */,
-				16F88FD72D548B3A00BF7CDE /* HomeViewModel.swift in Sources */,
+				16F88FD72D548B3A00BF7CDE /* TypingViewModel.swift in Sources */,
 				16F504BE2D54AB2800EE67F0 /* UITextField+placeholder.swift in Sources */,
 				16F504BA2D54AB2800EE67F0 /* UICollectionView+register.swift in Sources */,
 				16F504A42D54AB2000EE67F0 /* Combine+BehaviorSubject.swift in Sources */,
-				16F88FD52D548B3400BF7CDE /* HomeViewController.swift in Sources */,
 				16F6FABF2D5B28BF00A66456 /* TypingSpeedCalculator.swift in Sources */,
 				16F504CB2D54AB2800EE67F0 /* UITableView+register.swift in Sources */,
+				16F601F32D63923100A66456 /* TypingViewController.swift in Sources */,
 				164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */,
 				16F504CC2D54AB2800EE67F0 /* UIView+combine.swift in Sources */,
 				16F600A02D62F8F200A66456 /* SummaryViewController.swift in Sources */,
@@ -746,7 +746,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -804,7 +804,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -826,9 +826,9 @@
 				INFOPLIST_FILE = MentoringProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -836,9 +836,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kw.MentoringProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -854,9 +858,9 @@
 				INFOPLIST_FILE = MentoringProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -864,9 +868,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kw.MentoringProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

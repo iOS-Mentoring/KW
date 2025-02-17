@@ -9,7 +9,7 @@ import Combine
 import SafariServices
 import UIKit
 
-final class HomeViewController: BaseViewController {
+class TypingViewController: BaseViewController {
     // MARK: 네비게이션바 버튼 설정
     
     private let historyButton: UIButton = {
@@ -45,7 +45,7 @@ final class HomeViewController: BaseViewController {
     private let typingSpeedView = TypingSpeedView()
     private let descriptionView = DescriptionView()
     
-    private let viewModel = HomeViewModel()
+    private let viewModel = TypingViewModel()
     private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ final class HomeViewController: BaseViewController {
     }
 }
 
-extension HomeViewController {
+extension TypingViewController {
     // 네비게이션 바 세팅
     func setupNavigationBar() {
         navigationTitle = "하루필사"
@@ -130,7 +130,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController {
+extension TypingViewController {
     @objc func historyButtonTapped() {
         let vc = SummaryViewController()
         self.present(vc, animated: true)
@@ -144,7 +144,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: UITextViewDelegate {
+extension TypingViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.inputStr = textView.text ?? ""
     }

@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
 
-        let mainVC = HomeViewController()
+        let mainVC = TypingViewController()
         mainVC.view.backgroundColor = .white
 
         let navigationViewController = UINavigationController(rootViewController: mainVC)
