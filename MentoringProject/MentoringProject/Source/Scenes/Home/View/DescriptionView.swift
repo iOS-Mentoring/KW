@@ -37,10 +37,10 @@ class DescriptionView: UIView {
         return label
     }()
     
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = .iconLink
-        return imageView
+    let linkButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(.iconLink, for: .normal)
+        return button
     }()
 
     override init(frame: CGRect) {
@@ -65,7 +65,7 @@ class DescriptionView: UIView {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(subTitleLabel)
         
-        addSubview(imageView, autoLayout: [.trailing(20), .centerY(0)])
+        addSubview(linkButton, autoLayout: [.trailing(20), .centerY(0)])
         addSubview(lineView, autoLayout: [.leading(0), .trailing(0), .top(0), .height(1)])
         addSubview(stackView, autoLayout: [.leading(20), .top(11), .bottom(11), .centerY(0)])
     }

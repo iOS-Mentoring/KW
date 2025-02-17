@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SafariServices
 import UIKit
 
 class HomeViewController: BaseViewController {
@@ -124,6 +125,8 @@ extension HomeViewController {
         
         typingTextView.inputAccessoryView = descriptionView
         typingTextView.reloadInputViews()
+    
+        descriptionView.linkButton.addTarget(self, action: #selector(linkButtonTapped), for: .touchUpInside)
     }
 }
 
@@ -131,6 +134,13 @@ extension HomeViewController {
     @objc func historyButtonTapped() {
         let vc = HistoryViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func linkButtonTapped() {
+        guard let url = URL(string: "https://www.google.com") else { return }
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.modalPresentationStyle = .fullScreen
+        present(safariVC, animated: true)
     }
 }
 
