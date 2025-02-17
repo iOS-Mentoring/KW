@@ -20,4 +20,6 @@ public extension UIImage {
     
     static let illustHaruHalf = UIImage(named: "illust_haru_half")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
     static let illustHaruWhole = UIImage(named: "illust_haru_whole")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
+    
+    static let crumpledWhitePaper = UIImage(named: "crumpled-white-paper")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
 }

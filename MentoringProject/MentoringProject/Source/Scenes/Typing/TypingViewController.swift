@@ -6,9 +6,10 @@
 //
 
 import Combine
+import SafariServices
 import UIKit
 
-class HomeViewController: BaseViewController {
+class TypingViewController: BaseViewController {
     // MARK: 네비게이션바 버튼 설정
     
     private let historyButton: UIButton = {
@@ -44,7 +45,7 @@ class HomeViewController: BaseViewController {
     private let typingSpeedView = TypingSpeedView()
     private let descriptionView = DescriptionView()
     
-    private let viewModel = HomeViewModel()
+    private let viewModel = TypingViewModel()
     private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
@@ -91,7 +92,7 @@ class HomeViewController: BaseViewController {
     }
 }
 
-extension HomeViewController {
+extension TypingViewController {
     // 네비게이션 바 세팅
     func setupNavigationBar() {
         navigationTitle = "하루필사"
@@ -124,17 +125,26 @@ extension HomeViewController {
         
         typingTextView.inputAccessoryView = descriptionView
         typingTextView.reloadInputViews()
+    
+        descriptionView.linkButton.addTarget(self, action: #selector(linkButtonTapped), for: .touchUpInside)
     }
 }
 
-extension HomeViewController {
+extension TypingViewController {
     @objc func historyButtonTapped() {
-        let vc = HistoryViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = SummaryViewController()
+        self.present(vc, animated: true)
+    }
+    
+    @objc func linkButtonTapped() {
+        guard let url = URL(string: "https://www.google.com") else { return }
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.modalPresentationStyle = .fullScreen
+        present(safariVC, animated: true)
     }
 }
 
-extension HomeViewController: UITextViewDelegate {
+extension TypingViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.inputStr = textView.text ?? ""
     }
