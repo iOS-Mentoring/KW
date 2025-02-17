@@ -53,10 +53,13 @@
 		16F504EB2D54B00600EE67F0 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16F504DF2D54B00600EE67F0 /* Pretendard-ExtraLight.otf */; };
 		16F504EC2D54B00600EE67F0 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16F504E02D54B00600EE67F0 /* Pretendard-SemiBold.otf */; };
 		16F504ED2D54B01E00EE67F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16F88F572D5487E400BF7CDE /* LaunchScreen.storyboard */; };
-		16F600A02D62F8F200A66456 /* TypingResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6009F2D62F8F200A66456 /* TypingResultViewController.swift */; };
+		16F600A02D62F8F200A66456 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6009F2D62F8F200A66456 /* SummaryViewController.swift */; };
 		16F600A22D62F91200A66456 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F600A12D62F91200A66456 /* BaseView.swift */; };
-		16F600A42D62F9AA00A66456 /* TypingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F600A32D62F9AA00A66456 /* TypingResultView.swift */; };
+		16F600A42D62F9AA00A66456 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F600A32D62F9AA00A66456 /* SummaryView.swift */; };
 		16F601312D631DEB00A66456 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601302D631DEB00A66456 /* PaddedLabel.swift */; };
+		16F601352D6352AA00A66456 /* SummaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601342D6352AA00A66456 /* SummaryHeaderView.swift */; };
+		16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601362D63538E00A66456 /* SummaryPerformanceView.swift */; };
+		16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601382D63541100A66456 /* SummaryReferenceView.swift */; };
 		16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */; };
 		16F6FABF2D5B28BF00A66456 /* TypingSpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */; };
 		16F6FAC12D5B2BC300A66456 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC02D5B2BC300A66456 /* TimerManager.swift */; };
@@ -134,10 +137,13 @@
 		16F504DE2D54B00600EE67F0 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		16F504DF2D54B00600EE67F0 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		16F504E02D54B00600EE67F0 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
-		16F6009F2D62F8F200A66456 /* TypingResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingResultViewController.swift; sourceTree = "<group>"; };
+		16F6009F2D62F8F200A66456 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		16F600A12D62F91200A66456 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		16F600A32D62F9AA00A66456 /* TypingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingResultView.swift; sourceTree = "<group>"; };
+		16F600A32D62F9AA00A66456 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		16F601302D631DEB00A66456 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
+		16F601342D6352AA00A66456 /* SummaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeaderView.swift; sourceTree = "<group>"; };
+		16F601362D63538E00A66456 /* SummaryPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPerformanceView.swift; sourceTree = "<group>"; };
+		16F601382D63541100A66456 /* SummaryReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryReferenceView.swift; sourceTree = "<group>"; };
 		16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingSpeedModel.swift; sourceTree = "<group>"; };
 		16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypingSpeedCalculator.swift; path = MentoringProject/Source/Models/TypingSpeedCalculator.swift; sourceTree = SOURCE_ROOT; };
 		16F6FAC02D5B2BC300A66456 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerManager.swift; path = MentoringProject/Source/Models/TimerManager.swift; sourceTree = SOURCE_ROOT; };
@@ -203,12 +209,12 @@
 		16F504992D54AB2000EE67F0 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				16F5049A2D54AB2000EE67F0 /* Publisher+extension.swift */,
 				16F5049B2D54AB2000EE67F0 /* Collection+Index.swift */,
-				16F5049C2D54AB2000EE67F0 /* Date+Formatted.swift */,
-				16F5049D2D54AB2000EE67F0 /* Future+Async.swift */,
 				16F5049E2D54AB2000EE67F0 /* Combine+BehaviorSubject.swift */,
+				16F5049C2D54AB2000EE67F0 /* Date+Formatted.swift */,
 				16F5049F2D54AB2000EE67F0 /* Date+KoreanStyleFormater.swift */,
+				16F5049D2D54AB2000EE67F0 /* Future+Async.swift */,
+				16F5049A2D54AB2000EE67F0 /* Publisher+extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -216,25 +222,25 @@
 		16F504A62D54AB2800EE67F0 /* UIExtension */ = {
 			isa = PBXGroup;
 			children = (
-				16F504A72D54AB2800EE67F0 /* UICollectionView+register.swift */,
-				16F504A82D54AB2800EE67F0 /* UIControl+combine.swift */,
-				16F504A92D54AB2800EE67F0 /* UIColor+hex.swift */,
-				16F504AA2D54AB2800EE67F0 /* UIFont+named.swift */,
-				16F504AB2D54AB2800EE67F0 /* UITextField+placeholder.swift */,
-				16F504AC2D54AB2800EE67F0 /* UIView+autolayout.swift */,
-				16F504AD2D54AB2800EE67F0 /* UIViewController+keyboard.swift */,
-				16F504AE2D54AB2800EE67F0 /* UIColor+named.swift */,
-				16F504AF2D54AB2800EE67F0 /* UITextView+estimatedSize.swift */,
-				16F504B02D54AB2800EE67F0 /* UIViewController+alert.swift */,
-				16F504B12D54AB2800EE67F0 /* UIView+corner.swift */,
-				16F504B22D54AB2800EE67F0 /* UILabel+estimatedSize.swift */,
-				16F504B32D54AB2800EE67F0 /* UIImage+named.swift */,
 				16F504B42D54AB2800EE67F0 /* Keyboard+combine.swift */,
+				16F504A72D54AB2800EE67F0 /* UICollectionView+register.swift */,
+				16F504A92D54AB2800EE67F0 /* UIColor+hex.swift */,
+				16F504AE2D54AB2800EE67F0 /* UIColor+named.swift */,
+				16F504A82D54AB2800EE67F0 /* UIControl+combine.swift */,
+				16F504AA2D54AB2800EE67F0 /* UIFont+named.swift */,
+				16F504B32D54AB2800EE67F0 /* UIImage+named.swift */,
 				16F504B52D54AB2800EE67F0 /* UIImageView+animation.swift */,
-				16F504B62D54AB2800EE67F0 /* UIView+shadow.swift */,
+				16F504B22D54AB2800EE67F0 /* UILabel+estimatedSize.swift */,
 				16F504B72D54AB2800EE67F0 /* UIScreen+size.swift */,
 				16F504B82D54AB2800EE67F0 /* UITableView+register.swift */,
+				16F504AB2D54AB2800EE67F0 /* UITextField+placeholder.swift */,
+				16F504AF2D54AB2800EE67F0 /* UITextView+estimatedSize.swift */,
+				16F504AC2D54AB2800EE67F0 /* UIView+autolayout.swift */,
 				16F504B92D54AB2800EE67F0 /* UIView+combine.swift */,
+				16F504B12D54AB2800EE67F0 /* UIView+corner.swift */,
+				16F504B62D54AB2800EE67F0 /* UIView+shadow.swift */,
+				16F504B02D54AB2800EE67F0 /* UIViewController+alert.swift */,
+				16F504AD2D54AB2800EE67F0 /* UIViewController+keyboard.swift */,
 			);
 			path = UIExtension;
 			sourceTree = "<group>";
@@ -258,20 +264,23 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		16F6009C2D62F8CE00A66456 /* TypingResult */ = {
+		16F6009C2D62F8CE00A66456 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
+				16F6009F2D62F8F200A66456 /* SummaryViewController.swift */,
 				16F6009E2D62F8DC00A66456 /* ViewModel */,
 				16F6009D2D62F8D800A66456 /* View */,
 			);
-			path = TypingResult;
+			path = Summary;
 			sourceTree = "<group>";
 		};
 		16F6009D2D62F8D800A66456 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				16F6009F2D62F8F200A66456 /* TypingResultViewController.swift */,
-				16F600A32D62F9AA00A66456 /* TypingResultView.swift */,
+				16F600A32D62F9AA00A66456 /* SummaryView.swift */,
+				16F601342D6352AA00A66456 /* SummaryHeaderView.swift */,
+				16F601362D63538E00A66456 /* SummaryPerformanceView.swift */,
+				16F601382D63541100A66456 /* SummaryReferenceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -359,7 +368,7 @@
 		16F88F7C2D5489B400BF7CDE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				16F6009C2D62F8CE00A66456 /* TypingResult */,
+				16F6009C2D62F8CE00A66456 /* Summary */,
 				164E032F2D563AB20029C7AD /* Base */,
 				16F6FABA2D5B274C00A66456 /* History */,
 				16F88FD12D548B1200BF7CDE /* Home */,
@@ -615,7 +624,7 @@
 				16F504CB2D54AB2800EE67F0 /* UITableView+register.swift in Sources */,
 				164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */,
 				16F504CC2D54AB2800EE67F0 /* UIView+combine.swift in Sources */,
-				16F600A02D62F8F200A66456 /* TypingResultViewController.swift in Sources */,
+				16F600A02D62F8F200A66456 /* SummaryViewController.swift in Sources */,
 				16F6FAC12D5B2BC300A66456 /* TimerManager.swift in Sources */,
 				16F504C72D54AB2800EE67F0 /* Keyboard+combine.swift in Sources */,
 				164E03282D563A0E0029C7AD /* CustomNavigationBarView.swift in Sources */,
@@ -632,14 +641,17 @@
 				16F600A22D62F91200A66456 /* BaseView.swift in Sources */,
 				16F88F4F2D5487E200BF7CDE /* SceneDelegate.swift in Sources */,
 				16F601312D631DEB00A66456 /* PaddedLabel.swift in Sources */,
+				16F601352D6352AA00A66456 /* SummaryHeaderView.swift in Sources */,
 				16F504C22D54AB2800EE67F0 /* UITextView+estimatedSize.swift in Sources */,
 				16F504A52D54AB2000EE67F0 /* Date+KoreanStyleFormater.swift in Sources */,
+				16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */,
 				16F6FAC32D5B31C600A66456 /* TypingValidator.swift in Sources */,
 				16F504C92D54AB2800EE67F0 /* UIView+shadow.swift in Sources */,
-				16F600A42D62F9AA00A66456 /* TypingResultView.swift in Sources */,
+				16F600A42D62F9AA00A66456 /* SummaryView.swift in Sources */,
 				16F504BF2D54AB2800EE67F0 /* UIView+autolayout.swift in Sources */,
 				16F504BD2D54AB2800EE67F0 /* UIFont+named.swift in Sources */,
 				16F504BC2D54AB2800EE67F0 /* UIColor+hex.swift in Sources */,
+				16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */,
 				164E03392D563CFB0029C7AD /* Preview.swift in Sources */,
 				16F504C32D54AB2800EE67F0 /* UIViewController+alert.swift in Sources */,
 			);
