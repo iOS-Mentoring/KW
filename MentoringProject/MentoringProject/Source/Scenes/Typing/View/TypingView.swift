@@ -25,4 +25,8 @@ final class TypingView: BaseView {
     func setTextViewFirstResponder() {
         typingView.setTextViewFirstResponder()
     }
+    
+    func setTextViewStr(str: String) {
+        typingView.setTextViewStr(str: str)
+    }
 }

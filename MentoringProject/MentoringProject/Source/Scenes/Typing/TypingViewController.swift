@@ -11,7 +11,9 @@ import UIKit
 
 class TypingViewController: BaseViewController {
     private let rootView = TypingView()
+    
     private let viewModel = TypingViewModel()
+    private let input: PassthroughSubject<TypingViewModel.Input, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
 
     private let historyButton: UIButton = {
@@ -27,7 +29,11 @@ class TypingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        bind()
+        
         configurNavigationBar()
+        
+        self.input.send(.viewDidLoad)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -35,7 +41,31 @@ class TypingViewController: BaseViewController {
 
         rootView.setTextViewFirstResponder()
     }
+    
+    func bind() {
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        
+        output
+            .sink { [weak self] event in
+            guard let self = self else { return }
+            switch event {
+            case .fetchTypingString(let str):
+                rootView.setTextViewStr(str: str)
+            }
+        }.store(in: &cancellables)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 extension TypingViewController {
     func configurNavigationBar() {
@@ -46,10 +76,33 @@ extension TypingViewController {
     }
 
     @objc func historyButtonTapped() {
-        let vc = SummaryViewController()
-        present(vc, animated: true)
+//        let vc = SummaryViewController()
+//        present(vc, animated: true)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 //

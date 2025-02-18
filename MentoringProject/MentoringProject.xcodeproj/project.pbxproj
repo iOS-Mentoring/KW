@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		163DC63C2D6396A1009CCB5D /* TypingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63B2D6396A1009CCB5D /* TypingView.swift */; };
 		163DC63E2D6398D6009CCB5D /* TypingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63D2D6398D6009CCB5D /* TypingTextView.swift */; };
+		163DC7AF2D646885009CCB5D /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC7AE2D646885009CCB5D /* ViewModelType.swift */; };
 		164E03282D563A0E0029C7AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03272D563A0E0029C7AD /* NavigationBarView.swift */; };
 		164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E032D2D563AA40029C7AD /* HistoryViewController.swift */; };
 		164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03302D563AB20029C7AD /* BaseViewController.swift */; };
@@ -96,6 +97,7 @@
 /* Begin PBXFileReference section */
 		163DC63B2D6396A1009CCB5D /* TypingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingView.swift; sourceTree = "<group>"; };
 		163DC63D2D6398D6009CCB5D /* TypingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextView.swift; sourceTree = "<group>"; };
+		163DC7AE2D646885009CCB5D /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		164E03272D563A0E0029C7AD /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		164E032D2D563AA40029C7AD /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		164E03302D563AB20029C7AD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		163DC7AD2D646827009CCB5D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				163DC7AE2D646885009CCB5D /* ViewModelType.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		164E032F2D563AB20029C7AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +221,7 @@
 				16F5049F2D54AB2000EE67F0 /* Date+KoreanStyleFormater.swift */,
 				16F5049D2D54AB2000EE67F0 /* Future+Async.swift */,
 				16F5049A2D54AB2000EE67F0 /* Publisher+extension.swift */,
+				16F6FAC62D5B435200A66456 /* TimeInterval+convertTime.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -237,6 +248,7 @@
 				16F504B62D54AB2800EE67F0 /* UIView+shadow.swift */,
 				16F504B02D54AB2800EE67F0 /* UIViewController+alert.swift */,
 				16F504AD2D54AB2800EE67F0 /* UIViewController+keyboard.swift */,
+				164E03362D563AE90029C7AD /* UITextView+lineSpacing.swift */,
 			);
 			path = UIExtension;
 			sourceTree = "<group>";
@@ -404,6 +416,7 @@
 		16F88F802D548A1400BF7CDE /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				163DC7AD2D646827009CCB5D /* Common */,
 				16F6012F2D631DD900A66456 /* UIComponents */,
 				16F88F812D548A3000BF7CDE /* Utils */,
 				16F88F7E2D5489C600BF7CDE /* Models */,
@@ -424,8 +437,6 @@
 		16F88F832D548A6200BF7CDE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				164E03362D563AE90029C7AD /* UITextView+lineSpacing.swift */,
-				16F6FAC62D5B435200A66456 /* TimeInterval+convertTime.swift */,
 				16F504A62D54AB2800EE67F0 /* UIExtension */,
 				16F504992D54AB2000EE67F0 /* Extension */,
 			);
@@ -648,6 +659,7 @@
 				16F6FAC32D5B31C600A66456 /* TypingValidator.swift in Sources */,
 				16F504C92D54AB2800EE67F0 /* UIView+shadow.swift in Sources */,
 				16F600A42D62F9AA00A66456 /* SummaryView.swift in Sources */,
+				163DC7AF2D646885009CCB5D /* ViewModelType.swift in Sources */,
 				16F504BF2D54AB2800EE67F0 /* UIView+autolayout.swift in Sources */,
 				16F504BD2D54AB2800EE67F0 /* UIFont+named.swift in Sources */,
 				16F504BC2D54AB2800EE67F0 /* UIColor+hex.swift in Sources */,
