@@ -56,4 +56,8 @@ extension TypingSpeedView {
         
         speedLabel.attributedText = attributedText
     }
+    
+    func updateTimerlabel(seconds: Int) {
+        timeLabel.text = "\(seconds.formattedTime())"
+    }
 }
