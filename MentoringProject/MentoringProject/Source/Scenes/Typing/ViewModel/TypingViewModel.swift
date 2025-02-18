@@ -8,87 +8,93 @@
 import Combine
 import Foundation
 
-final class TypingViewModel: ViewModelType {
-    enum Input { // 뷰로부터 들어오는 입력
-        case viewDidLoad
-        // 텍스트 뷰에 텍스트 입력 시작
+final class TypingViewModel: BaseViewModelType {
+    struct Input {
+        let viewDidLoad: AnyPublisher<Void, Never> // 필사 텍스트 받기
+//        let textViewDidChange: AnyPublisher<String, Never> // 텍스트 뷰 텍스트 입력
     }
-    
-    enum Output { // 뷰모델로부터 뷰로 나가는 출력
-        case fetchTypingString(String)
-        // WPM
-        // 타이머 결과값
-        
+
+    struct Output {
+        let updatePlaceholder: AnyPublisher<String, Never> // 텍스트 뷰 플레이스홀더 업데이트
+//        let updateTimer: AnyPublisher<Int, Never> // 타이머 업데이트
+//        let updateWPM: AnyPublisher<Int, Never> // WPM 업데이트
     }
 
     private let timerManager: TimerManager
     private var cancellables = Set<AnyCancellable>()
-    private let output: PassthroughSubject<Output, Never> = .init()
 
     init() {
         self.timerManager = TimerManager()
     }
-    
-    func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
+
+    func transform(from input: Input) -> Output {
         
-        input.sink { [weak self] event in
-            guard let self = self else { return }
-            switch event {
-            case .viewDidLoad:
-                Future(asyncFunc: testViewDidLoad)
-                    .receive(on: DispatchQueue.main)
-                    .sink { str in
-                    self.output.send(.fetchTypingString(str))
-                }.store(in: &cancellables)
+        // 지속적인 방출할거?
+        let updateTimerSub = PassthroughSubject<Int, Never>()
+        let upateWPMSub = PassthroughSubject<Int, Never>()
+        
+        let updatePlaceholder = input.viewDidLoad
+            .flatMap { [weak self] _ -> AnyPublisher<String, Never> in
+                guard let self = self else {
+                    return Just("텍스트를 가져오지 못했습니다.").eraseToAnyPublisher()
+                }
+                return Future(asyncFunc: self.testViewDidLoad)
+                    .eraseToAnyPublisher()
             }
-        }.store(in: &cancellables)
+            .eraseToAnyPublisher()
+      
         
-        return output.eraseToAnyPublisher()
+//        let StartTimer = input.textViewDidChange
+//            .filter { !$0.isEmpty }
+//            .first()
+//            .sink { [weak self] _ in
+//                guard let self else { return }
+//                // 처리
+//            }
+//            .store(in: &cancellables)
+//        
+//        let updateWPM = input.textViewDidChange
+//            .sink { [weak self] text in
+//                guard let self = self else { return }
+//                // 처리
+//            }
+//            .store(in: &cancellables)
+        
+        return Output(updatePlaceholder: updatePlaceholder)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func testViewDidLoad() async throws -> String {
         try await Task.sleep(nanoseconds: 1_000_000_000) // 1초 지연
         return "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // final class TypingViewModel {
 //    @Published var inputStr: String = ""

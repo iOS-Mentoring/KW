@@ -9,100 +9,73 @@ import Combine
 import SafariServices
 import UIKit
 
-class TypingViewController: BaseViewController {
+class TypingViewController<ViewModel: BaseViewModelType>: BaseViewController where ViewModel.Input == TypingViewModel.Input, ViewModel.Output == TypingViewModel.Output {
     private let rootView = TypingView()
     
-    private let viewModel = TypingViewModel()
-    private let input: PassthroughSubject<TypingViewModel.Input, Never> = .init()
+    private let viewModel: ViewModel
+    
+    private let inputSubject = PassthroughSubject<ViewModel.Input, Never>()
     private var cancellables = Set<AnyCancellable>()
-
+    
     private let historyButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(.iconHistory, for: .normal)
         return button
     }()
-
+    
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = rootView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         bind()
-        
         configurNavigationBar()
-        
-        self.input.send(.viewDidLoad)
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         rootView.setTextViewFirstResponder()
     }
     
     func bind() {
-        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        let input = TypingViewModel.Input(viewDidLoad: Just(()).eraseToAnyPublisher())
+        let output = viewModel.transform(from: input)
         
-        output
-            .sink { [weak self] event in
-            guard let self = self else { return }
-            switch event {
-            case .fetchTypingString(let str):
-                rootView.setTextViewStr(str: str)
+        output.updatePlaceholder
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] text in
+                self?.rootView.typingView.setTextViewStr(str: text)
             }
-        }.store(in: &cancellables)
+            .store(in: &cancellables)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 extension TypingViewController {
     func configurNavigationBar() {
         navigationTitle = "하루필사"
-
-        historyButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
+        
+        //        historyButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
         setRightBarButtonItem(item: historyButton)
     }
-
-    @objc func historyButtonTapped() {
-//        let vc = SummaryViewController()
-//        present(vc, animated: true)
-    }
+    
+    //    @objc func historyButtonTapped() {
+    //        let vc = SummaryViewController()
+    //        present(vc, animated: true)
+    //    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 //
@@ -197,8 +170,3 @@ extension TypingViewController {
 //    }
 // }
 //
-// extension TypingViewController: UITextViewDelegate {
-//    func textViewDidChange(_ textView: UITextView) {
-//        viewModel.inputStr = textView.text ?? ""
-//    }
-// }
