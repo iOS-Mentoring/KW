@@ -9,7 +9,7 @@ import UIKit
 
 final class TypingView: BaseView {
     private let speedView = TypingSpeedView()
-    private let typingView = TypingTextView()
+    let typingView = TypingTextView()
     private let descriptionView = DescriptionView()
 
     override func configureLayout() {
@@ -18,9 +18,9 @@ final class TypingView: BaseView {
         descriptionView.autoLayout([.height(56)])
     }
 
-    override func configureView() {
-        typingView.typingTextView.inputAccessoryView = descriptionView
-    }
+//    override func configureView() {
+//        typingView.typingTextView.inputAccessoryView = descriptionView
+//    }
 
     func setTextViewFirstResponder() {
         typingView.setTextViewFirstResponder()
