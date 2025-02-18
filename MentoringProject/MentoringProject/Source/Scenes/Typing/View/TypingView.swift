@@ -18,9 +18,9 @@ final class TypingView: BaseView {
         descriptionView.autoLayout([.height(56)])
     }
 
-//    override func configureView() {
-//        typingView.typingTextView.inputAccessoryView = descriptionView
-//    }
+    override func configureView() {
+        typingView.typingTextView.inputAccessoryView = descriptionView
+    }
 
     func setTextViewFirstResponder() {
         typingView.setTextViewFirstResponder()
@@ -28,5 +28,13 @@ final class TypingView: BaseView {
     
     func setTextViewStr(str: String) {
         typingView.setTextViewStr(str: str)
+    }
+    
+    func updateTimeLabel(seconds: Int) {
+        speedView.updateTimerlabel(seconds: seconds)
+    }
+    
+    func updateWPMLabel(wpm: Int) {
+        speedView.updateSpeedLabel(wpm: wpm)
     }
 }

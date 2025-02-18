@@ -51,15 +51,48 @@ class TypingViewController<ViewModel: BaseViewModelType>: BaseViewController whe
     }
     
     func bind() {
-        let input = TypingViewModel.Input(viewDidLoad: Just(()).eraseToAnyPublisher())
+        let input = TypingViewModel.Input(viewDidLoad: Just(()).eraseToAnyPublisher(),
+                                          textViewDidChanged: rootView.typingView.typingTextView.textPublisher)
+        
         let output = viewModel.transform(from: input)
         
         output.updatePlaceholder
             .receive(on: DispatchQueue.main)
             .sink { [weak self] text in
-                self?.rootView.typingView.setTextViewStr(str: text)
+                guard let self = self else { return }
+                self.rootView.typingView.setTextViewStr(str: text)
             }
             .store(in: &cancellables)
+        
+        output.updateWPMText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] wpm in
+                guard let self = self else { return }
+                self.rootView.updateWPMLabel(wpm: wpm)
+            }
+            .store(in: &cancellables)
+        
+        output.updateElapsedTime
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] seconds in
+                guard let self = self else { return }
+                self.rootView.updateTimeLabel(seconds: seconds)
+            }
+            .store(in: &cancellables)
+        
+        output.showSummaryView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.showSummaryViewController()
+            }
+            .store(in: &cancellables)
+    }
+    
+    @objc
+    func historyButtonTapped() {
+        let vc = HistoryViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -67,14 +100,14 @@ extension TypingViewController {
     func configurNavigationBar() {
         navigationTitle = "하루필사"
         
-        //        historyButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
+        historyButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
         setRightBarButtonItem(item: historyButton)
     }
     
-    //    @objc func historyButtonTapped() {
-    //        let vc = SummaryViewController()
-    //        present(vc, animated: true)
-    //    }
+    func showSummaryViewController() {
+        let vc = SummaryViewController()
+        present(vc, animated: true)
+    }
 }
 
 //
