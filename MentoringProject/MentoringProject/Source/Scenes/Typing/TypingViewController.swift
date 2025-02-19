@@ -50,9 +50,24 @@ class TypingViewController<ViewModel: BaseViewModelType>: BaseViewController whe
         rootView.setTextViewFirstResponder()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        observeKeyboardEvents()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        stopObservingKeyboardEvents()
+    }
+    
     func bind() {
-        let input = TypingViewModel.Input(viewDidLoad: Just(()).eraseToAnyPublisher(),
-                                          textViewDidChanged: rootView.typingView.typingTextView.textPublisher)
+        let input = TypingViewModel.Input(
+            viewDidLoad: Just(()).eraseToAnyPublisher(),
+            textViewTextDidChanged: rootView.typingView.typingTextView.textPublisher,
+            textViewContentOffsetDidChange: rootView.typingView.typingTextView.publisher(for: \.contentOffset).eraseToAnyPublisher(),
+            keyboardHeight: keyboardHeightPublisher)
         
         let output = viewModel.transform(from: input)
         
@@ -60,6 +75,7 @@ class TypingViewController<ViewModel: BaseViewModelType>: BaseViewController whe
             .receive(on: DispatchQueue.main)
             .sink { [weak self] text in
                 guard let self = self else { return }
+                
                 self.rootView.typingView.setTextViewStr(str: text)
             }
             .store(in: &cancellables)
@@ -87,6 +103,26 @@ class TypingViewController<ViewModel: BaseViewModelType>: BaseViewController whe
                 self.showSummaryViewController()
             }
             .store(in: &cancellables)
+        
+        // TODO: 입력 글자 검사 기능
+        
+        // 키보드 활성화시 텍스트뷰 바텀 인셋 올리기?
+        output.updateTextViewBottomInset
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] height in
+                guard let self = self else { return }
+                self.rootView.typingView.typingTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+            }
+            .store(in: &cancellables)
+        
+        output.textViewSyncContentOffsetDidChange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] offset in
+                guard let self = self else { return }
+                print(offset)
+                self.rootView.typingView.typingPlaceholderTextView.contentOffset = offset
+            }
+            .store(in: &cancellables)
     }
     
     @objc
@@ -109,6 +145,86 @@ extension TypingViewController {
         present(vc, animated: true)
     }
 }
+
+
+extension UIViewController {
+    private struct KeyboardHandler {
+        static var keyboardHeightSubject = PassthroughSubject<(CGFloat, CGFloat), Never>()
+        static var cancellables = Set<AnyCancellable>()
+    }
+    
+    var keyboardHeightPublisher: AnyPublisher<(CGFloat, CGFloat), Never> {
+        return KeyboardHandler.keyboardHeightSubject.eraseToAnyPublisher()
+    }
+    
+    // 키보드 감지 시작
+    func observeKeyboardEvents() {
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
+            .map { $0.height } // 높이값으로 변환
+            .sink { height in // 높이값 방출
+                KeyboardHandler.keyboardHeightSubject.send((height, UIScreen.main.bounds.height))
+            }
+            .store(in: &KeyboardHandler.cancellables)
+        
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .map { _ in CGFloat(0) }
+            .sink { height in
+                KeyboardHandler.keyboardHeightSubject.send((height, UIScreen.main.bounds.height))
+            }
+            .store(in: &KeyboardHandler.cancellables)
+    }
+    
+    func stopObservingKeyboardEvents() {
+        KeyboardHandler.cancellables.removeAll() // ✅ 기존 키보드 구독 해제
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 //
