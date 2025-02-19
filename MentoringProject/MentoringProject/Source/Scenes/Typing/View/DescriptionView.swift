@@ -32,13 +32,13 @@ final class DescriptionView: BaseView {
         return label
     }()
 
-    let borderView: UIView = {
+    private let borderView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         return view
     }()
 
-    let linkButton: UIButton = {
+    private let linkButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(.iconLink, for: .normal)
         return button
