@@ -24,6 +24,7 @@ final class SummaryViewController: UIViewController {
         super.viewDidLoad()
         
         view.addSubview(downloadView, autoLayout: [.leading(0), .trailing(0), .bottom(0), .height(70)])
+        rootView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
     //    override func viewDidLayoutSubviews() {
@@ -35,5 +36,9 @@ final class SummaryViewController: UIViewController {
         //        let contentHeight = rootView.rootScrollView.contentSize.height
         //        let scrollViewHeight = rootView.rootScrollView.bounds.height
         //        rootView.rootScrollView.isScrollEnabled = contentHeight > scrollViewHeight
+    }
+    
+    @objc func closeButtonTapped() {
+        self.dismiss(animated: true)
     }
 }
