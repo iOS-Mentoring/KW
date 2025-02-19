@@ -8,13 +8,13 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    let customNavigationBar = CustomNavigationBarView()
+    let naviavigationBar = NavigationBarView()
     
     var navigationTitle: String? {
         get {
-            customNavigationBar.titleLabel.text
+            naviavigationBar.titleLabel.text
         } set {
-            customNavigationBar.titleLabel.text = newValue
+            naviavigationBar.titleLabel.text = newValue
         }
     }
     
@@ -26,16 +26,16 @@ class BaseViewController: UIViewController {
         
     // 네비게이션바 설정
     private func setupCustomNavigationBar() {
-        view.addSubview(customNavigationBar, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(60)])
+        view.addSubview(naviavigationBar, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(60)])
     }
     
     // 왼쪽 아이템 추가하기
     func setLeftBarButtonItem(item: UIButton) {
-        customNavigationBar.leftStackView.addArrangedSubview(item)
+        naviavigationBar.leftStackView.addArrangedSubview(item)
     }
     
     // 오른쪽 아이템 추가하기
     func setRightBarButtonItem(item: UIButton) {
-        customNavigationBar.rightStackView.addArrangedSubview(item)
+        naviavigationBar.rightStackView.addArrangedSubview(item)
     }
 }

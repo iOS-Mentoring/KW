@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TypingSpeedCalculator {
+final class TypingSpeedCalculator {
     func calculateWPM(count: Int, elapsedTime: TimeInterval) -> Int {
         let minutes = max(elapsedTime, 1) / 60.0
         return Int(Double(count) / 1 / minutes)

@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class TypingValidator {
+final class TypingValidator {
     private let placeholder: String
-    
+
     init(placeholder: String) {
         self.placeholder = placeholder
     }
@@ -23,7 +23,7 @@ class TypingValidator {
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.pretendard(type: .pretendardMedium, size: 20),
-            .paragraphStyle: paragraphStyle, // ✅ 줄 간격 적용
+            .paragraphStyle: paragraphStyle, // 줄 간격 적용
             .foregroundColor: UIColor.gray300 // 기본 색상은 회색
         ]
         

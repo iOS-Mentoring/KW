@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TypingSpeedView: UIView {
+final class TypingSpeedView: BaseView {
     let speedLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -34,24 +34,17 @@ class TypingSpeedView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupSpeedView()
+    override func configureLayout() {
+        addSubview(speedLabel, autoLayout: [.leading(20), .centerY(0)])
+        addSubview(timeLabel, autoLayout: [.trailing(20), .centerY(0)])
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSpeedView()
+    override func configureView() {
+        backgroundColor = .black
     }
 }
 
 extension TypingSpeedView {
-    func setupSpeedView() {
-        backgroundColor = .black
-        addSubview(speedLabel, autoLayout: [.leading(20), .centerY(0)])
-        addSubview(timeLabel, autoLayout: [.trailing(20), .centerY(0)])
-    }
-
     func updateSpeedLabel(wpm: Int) {
         let fullText = "WPM \(wpm)"
         let attributedText = NSMutableAttributedString(string: fullText)
@@ -62,5 +55,9 @@ extension TypingSpeedView {
         }
         
         speedLabel.attributedText = attributedText
+    }
+    
+    func updateTimerlabel(seconds: Int) {
+        timeLabel.text = "\(seconds.formattedTime())"
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomNavigationBarView: UIView {
+class NavigationBarView: UIView {
     
     // 제목 라벨
     let titleLabel: UILabel = {
