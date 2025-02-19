@@ -7,12 +7,11 @@
 
 import UIKit
 
-class TypingTextView: BaseView {
-    private let typingPlaceholderTextView: UITextView = {
+final class TypingTextView: BaseView {
+    let typingPlaceholderTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .gray200
         textView.font = UIFont.pretendard(type: .pretendardMedium, size: 20)
-        textView.isUserInteractionEnabled = false
         
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = UIEdgeInsets(top: 21, left: 20, bottom: 20, right: 20)
@@ -28,12 +27,16 @@ class TypingTextView: BaseView {
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = UIEdgeInsets(top: 21, left: 20, bottom: 20, right: 20)
         
+        textView.backgroundColor = .red
+        
+        textView.alpha = 0.2
+        
         return textView
     }()
     
     override func configureLayout() {
-        addSubview(typingPlaceholderTextView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
-        addSubview(typingTextView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
+        addSubview(typingPlaceholderTextView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottomSafeArea(0)])
+        addSubview(typingTextView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottomSafeArea(0)])
     }
     
     override func configureView() {
