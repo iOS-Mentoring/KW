@@ -26,7 +26,7 @@ final class TypingSpeedView: BaseView {
         return label
     }()
     
-    let timeLabel: UILabel = {
+    private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "00:00:00"
         label.textColor = .white
@@ -42,9 +42,7 @@ final class TypingSpeedView: BaseView {
     override func configureView() {
         backgroundColor = .black
     }
-}
-
-extension TypingSpeedView {
+    
     func updateSpeedLabel(wpm: Int) {
         let fullText = "WPM \(wpm)"
         let attributedText = NSMutableAttributedString(string: fullText)
