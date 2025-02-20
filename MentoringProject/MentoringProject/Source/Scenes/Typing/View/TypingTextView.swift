@@ -16,6 +16,7 @@ final class TypingTextView: BaseView {
         
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
+        textView.isEditable = false
         
         return textView
     }()
@@ -34,13 +35,22 @@ final class TypingTextView: BaseView {
         
         return textView
     }()
-    
+
     private var typingInputAccessoryView: TypingInputAccessoryView
     
     // 퍼블리셔 외부에서 사용가능하도록
-    public var textViewPublisher: AnyPublisher<String, Never> {
+    var textViewPublisher: AnyPublisher<String, Never> {
         return typingTextView.textPublisher
     }
+    
+    var activeTextView: UITextView {
+        return typingTextView
+    }
+    
+    var scrollTextViews: [UITextView] {
+        return [typingTextView, typingPlaceholderTextView]
+    }
+    
     
     init(typingInputAccessoryView: TypingInputAccessoryView) {
         self.typingInputAccessoryView = typingInputAccessoryView

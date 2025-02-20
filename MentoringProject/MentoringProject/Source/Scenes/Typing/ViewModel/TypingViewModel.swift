@@ -100,6 +100,8 @@ final class TypingViewModel: BaseViewModelType {
                 showSummaryView.send()
             }
             .store(in: &cancellables)
+        
+        
 
         return Output(placeholderTextUpdated: updatePlaceholder,
                       elapsedTimeUpdated: elapsedTimeSub.eraseToAnyPublisher(),
