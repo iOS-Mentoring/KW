@@ -62,7 +62,6 @@ final class TypingTextView: BaseView {
     }
     
     override func configureView() {
-        typingPlaceholderTextView.setLineSpacing(10, textColor: .gray300)
         typingTextView.inputAccessoryView = typingInputAccessoryView
     }
     
