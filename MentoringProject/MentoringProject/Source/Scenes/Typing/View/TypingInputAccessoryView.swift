@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DescriptionView: BaseView {
+final class TypingInputAccessoryView: BaseView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -43,21 +43,28 @@ final class DescriptionView: BaseView {
         button.setImage(.iconLink, for: .normal)
         return button
     }()
-
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 56)
+    
+    override init(frame: CGRect) {
+        super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 56))
+    }
+    
+     required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func configureLayout() {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(subTitleLabel)
 
-        addSubview(linkButton, autoLayout: [.trailing(20), .top(11), .bottom(12)])
-        addSubview(stackView, autoLayout: [.leading(20), .top(11), .bottom(12), .trailingEqualLessThan(to: linkButton, constant: 20)])
+        addSubview(linkButton, autoLayout: [.trailing(20), .centerY(0)])
+        addSubview(stackView, autoLayout: [.leading(20), .centerY(0)])
         addSubview(borderView, autoLayout: [.leading(0), .trailing(0), .top(0), .height(1)])
     }
 
     override func configureView() {
         backgroundColor = .gray200
     }
+    
+    // TODO: 타이틀 변경 메소드 구현
+    // TODO: 링크 버튼 이벤트 메소드 구현?
 }

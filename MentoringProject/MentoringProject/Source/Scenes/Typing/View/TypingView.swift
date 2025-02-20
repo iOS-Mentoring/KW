@@ -6,35 +6,38 @@
 //
 
 import UIKit
+import Combine
 
 final class TypingView: BaseView {
     private let speedView = TypingSpeedView()
-    let typingView = TypingTextView()
-    private let descriptionView = DescriptionView()
+    private let typingView = TypingTextView(typingInputAccessoryView: TypingInputAccessoryView())
+    
+    public var textViewPublisher: AnyPublisher<String, Never> {
+        return typingView.textViewPublisher
+    }
 
     override func configureLayout() {
-        addSubview(speedView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(60), .height(30)])
-        addSubview(typingView, autoLayout: [.leading(0), .trailing(0), .topNext(to: speedView, constant: 0), .bottomSafeArea(0)])
-        descriptionView.autoLayout([.height(56)])
+        addSubview(speedView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(30)])
+        addSubview(typingView, autoLayout: [.topNext(to: speedView, constant: 0), .leading(0), .trailing(0), .bottom(0)])
     }
+    
+    // MARK: speedView
 
-    override func configureView() {
-        typingView.typingTextView.inputAccessoryView = descriptionView
+    func updateTimeLabel(_ seconds: Int) {
+        speedView.updateTimerlabel(seconds: seconds)
     }
+    
+    func updateWPMLabel(_ wpm: Int) {
+        speedView.updateWPMLabel(wpm)
+    }
+    
+    // MARK: typingView
 
     func setTextViewFirstResponder() {
         typingView.setTextViewFirstResponder()
     }
     
-    func setTextViewStr(str: String) {
-        typingView.setTextViewStr(str: str)
-    }
-    
-    func updateTimeLabel(seconds: Int) {
-        speedView.updateTimerlabel(seconds: seconds)
-    }
-    
-    func updateWPMLabel(wpm: Int) {
-        speedView.updateSpeedLabel(wpm: wpm)
+    func setPlaceholderText(_ text: String) {
+        typingView.setPlaceholderText(text)
     }
 }

@@ -11,10 +11,14 @@
 		163DC63E2D6398D6009CCB5D /* TypingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63D2D6398D6009CCB5D /* TypingTextView.swift */; };
 		163DC7AF2D646885009CCB5D /* BaseViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */; };
 		163DC91D2D647F28009CCB5D /* UITextView+combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC91C2D647F1A009CCB5D /* UITextView+combine.swift */; };
+		163DC9AD2D65E807009CCB5D /* SummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC9AC2D65E807009CCB5D /* SummaryViewModel.swift */; };
+		163DC9AF2D65E8B2009CCB5D /* UIView+capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC9AE2D65E8A8009CCB5D /* UIView+capture.swift */; };
+		163DCACD2D66312E009CCB5D /* TextViewScrollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DCACC2D66312E009CCB5D /* TextViewScrollManager.swift */; };
+		163DCACF2D6637A5009CCB5D /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DCACE2D6637A5009CCB5D /* KeyboardObserver.swift */; };
 		164E03282D563A0E0029C7AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03272D563A0E0029C7AD /* NavigationBarView.swift */; };
 		164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E032D2D563AA40029C7AD /* HistoryViewController.swift */; };
 		164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03302D563AB20029C7AD /* BaseViewController.swift */; };
-		164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03322D563AC10029C7AD /* DescriptionView.swift */; };
+		164E03332D563AC10029C7AD /* TypingInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03322D563AC10029C7AD /* TypingInputAccessoryView.swift */; };
 		164E03352D563AC50029C7AD /* TypingSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03342D563AC50029C7AD /* TypingSpeedView.swift */; };
 		164E03372D563AE90029C7AD /* UITextView+lineSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03362D563AE90029C7AD /* UITextView+lineSpacing.swift */; };
 		164E03392D563CFB0029C7AD /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03382D563CFB0029C7AD /* Preview.swift */; };
@@ -100,10 +104,14 @@
 		163DC63D2D6398D6009CCB5D /* TypingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextView.swift; sourceTree = "<group>"; };
 		163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelType.swift; sourceTree = "<group>"; };
 		163DC91C2D647F1A009CCB5D /* UITextView+combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+combine.swift"; sourceTree = "<group>"; };
+		163DC9AC2D65E807009CCB5D /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
+		163DC9AE2D65E8A8009CCB5D /* UIView+capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+capture.swift"; sourceTree = "<group>"; };
+		163DCACC2D66312E009CCB5D /* TextViewScrollManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewScrollManager.swift; sourceTree = "<group>"; };
+		163DCACE2D6637A5009CCB5D /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		164E03272D563A0E0029C7AD /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		164E032D2D563AA40029C7AD /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		164E03302D563AB20029C7AD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		164E03322D563AC10029C7AD /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		164E03322D563AC10029C7AD /* TypingInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingInputAccessoryView.swift; sourceTree = "<group>"; };
 		164E03342D563AC50029C7AD /* TypingSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingSpeedView.swift; sourceTree = "<group>"; };
 		164E03362D563AE90029C7AD /* UITextView+lineSpacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+lineSpacing.swift"; sourceTree = "<group>"; };
 		164E03382D563CFB0029C7AD /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -199,6 +207,8 @@
 		163DC7AD2D646827009CCB5D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				163DCACE2D6637A5009CCB5D /* KeyboardObserver.swift */,
+				163DCACC2D66312E009CCB5D /* TextViewScrollManager.swift */,
 				163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */,
 			);
 			path = Common;
@@ -231,6 +241,7 @@
 		16F504A62D54AB2800EE67F0 /* UIExtension */ = {
 			isa = PBXGroup;
 			children = (
+				163DC9AE2D65E8A8009CCB5D /* UIView+capture.swift */,
 				16F504B42D54AB2800EE67F0 /* Keyboard+combine.swift */,
 				16F504A72D54AB2800EE67F0 /* UICollectionView+register.swift */,
 				16F504A92D54AB2800EE67F0 /* UIColor+hex.swift */,
@@ -299,6 +310,7 @@
 		16F6009E2D62F8DC00A66456 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				163DC9AC2D65E807009CCB5D /* SummaryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -382,8 +394,8 @@
 			children = (
 				164E032F2D563AB20029C7AD /* Base */,
 				16F6FABA2D5B274C00A66456 /* History */,
-				16F88FD12D548B1200BF7CDE /* Typing */,
 				16F6009C2D62F8CE00A66456 /* Summary */,
+				16F88FD12D548B1200BF7CDE /* Typing */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -463,7 +475,7 @@
 				163DC63B2D6396A1009CCB5D /* TypingView.swift */,
 				164E03342D563AC50029C7AD /* TypingSpeedView.swift */,
 				163DC63D2D6398D6009CCB5D /* TypingTextView.swift */,
-				164E03322D563AC10029C7AD /* DescriptionView.swift */,
+				164E03322D563AC10029C7AD /* TypingInputAccessoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -620,6 +632,7 @@
 			files = (
 				16F504D32D54AF2200EE67F0 /* UIImage+named.swift in Sources */,
 				164E03352D563AC50029C7AD /* TypingSpeedView.swift in Sources */,
+				163DCACF2D6637A5009CCB5D /* KeyboardObserver.swift in Sources */,
 				164E03372D563AE90029C7AD /* UITextView+lineSpacing.swift in Sources */,
 				16F504D22D54AF1E00EE67F0 /* UIColor+named.swift in Sources */,
 				163DC63E2D6398D6009CCB5D /* TypingTextView.swift in Sources */,
@@ -644,7 +657,7 @@
 				16F504CA2D54AB2800EE67F0 /* UIScreen+size.swift in Sources */,
 				16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */,
 				163DC63C2D6396A1009CCB5D /* TypingView.swift in Sources */,
-				164E03332D563AC10029C7AD /* DescriptionView.swift in Sources */,
+				164E03332D563AC10029C7AD /* TypingInputAccessoryView.swift in Sources */,
 				16F6FAC72D5B435200A66456 /* Int+convertTime.swift in Sources */,
 				164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */,
 				163DC91D2D647F28009CCB5D /* UITextView+combine.swift in Sources */,
@@ -658,6 +671,8 @@
 				16F601312D631DEB00A66456 /* PaddedLabel.swift in Sources */,
 				16F601352D6352AA00A66456 /* SummaryHeaderView.swift in Sources */,
 				16F504C22D54AB2800EE67F0 /* UITextView+estimatedSize.swift in Sources */,
+				163DC9AD2D65E807009CCB5D /* SummaryViewModel.swift in Sources */,
+				163DC9AF2D65E8B2009CCB5D /* UIView+capture.swift in Sources */,
 				16F504A52D54AB2000EE67F0 /* Date+KoreanStyleFormater.swift in Sources */,
 				16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */,
 				16F6FAC32D5B31C600A66456 /* TypingValidator.swift in Sources */,
@@ -668,6 +683,7 @@
 				16F504BD2D54AB2800EE67F0 /* UIFont+named.swift in Sources */,
 				16F504BC2D54AB2800EE67F0 /* UIColor+hex.swift in Sources */,
 				16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */,
+				163DCACD2D66312E009CCB5D /* TextViewScrollManager.swift in Sources */,
 				164E03392D563CFB0029C7AD /* Preview.swift in Sources */,
 				16F504C32D54AB2800EE67F0 /* UIViewController+alert.swift in Sources */,
 			);

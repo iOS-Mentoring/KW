@@ -9,28 +9,30 @@ import Combine
 import Foundation
 
 final class TypingViewModel: BaseViewModelType {
-    
     // 뷰 -> 뷰모델
     struct Input {
-        let viewDidLoad: AnyPublisher<Void, Never> // 필사 텍스트 받기
-        let textViewTextDidChanged: AnyPublisher<String, Never> // 텍스트 뷰 텍스트 입력
-        let textViewContentOffsetDidChange: AnyPublisher<CGPoint, Never> // 텍스트 뷰의 contentoffset 받아오기
-        let keyboardHeight: AnyPublisher<(CGFloat, CGFloat), Never> // 키보드 활성화 유무에 따라 높이값 가져오기?
+        let onViewDidLoad: AnyPublisher<Void, Never> // 필사 텍스트 받기
+        let onTextViewTextChanged: AnyPublisher<String, Never> // 텍스트 뷰 텍스트 입력
     }
 
     // 뷰모델 -> 뷰
     struct Output {
-        let updatePlaceholder: AnyPublisher<String, Never> // 텍스트 뷰 플레이스홀더 업데이트
-        let updateElapsedTime: AnyPublisher<Int, Never> // 타이머 업데이트
-        let updateWPMText: AnyPublisher<Int, Never> // WPM 업데이트
-        let showSummaryView: AnyPublisher<Void, Never> // 결과 화면 이동
-        let textViewSyncContentOffsetDidChange: AnyPublisher<CGPoint, Never> //
-        let updateTextViewBottomInset: AnyPublisher<CGFloat, Never>
+        let placeholderTextUpdated: AnyPublisher<String, Never> // 텍스트 뷰 플레이스홀더 업데이트
+        let elapsedTimeUpdated: AnyPublisher<Int, Never> // 타이머 업데이트
+        let wpmUpdated: AnyPublisher<Int, Never> // WPM 업데이트
+        let summaryViewPresented: AnyPublisher<Void, Never> // 결과 화면 이동
     }
 
     private let timerManager: TimerManager
-    private let typingCalc: TypingSpeedCalculator
+    private let typingCalc: TypingSpeedCalculator // 이름 바꿔
     private var cancellables = Set<AnyCancellable>()
+
+    private let elapsedTimeSub = CurrentValueSubject<Int, Never>(0)
+    private let wpmSub = CurrentValueSubject<Int, Never>(0)
+    private let currentTextSub = CurrentValueSubject<String, Never>("")
+    private let placeholderTextSub = CurrentValueSubject<String, Never>("")
+
+    private var screenHeight: CGFloat = 0
 
     init() {
         self.timerManager = TimerManager()
@@ -38,28 +40,25 @@ final class TypingViewModel: BaseViewModelType {
     }
 
     func transform(from input: Input) -> Output {
-        let elapsedTimeSub = PassthroughSubject<Int, Never>()
-        let updateWPMTextSub = PassthroughSubject<Int, Never>()
-        let currentText = CurrentValueSubject<String, Never>("")
-        let placeholderText = CurrentValueSubject<String, Never>("")
+        // PassthroughSubject 서브젝트들은 언제 사용해야하지?
         let showSummaryView = PassthroughSubject<Void, Never>()
 
         // 서버에서 받아오는 방식?으로 플레이스홀더 텍스트 적용
-        let updatePlaceholder = input.viewDidLoad
+        let updatePlaceholder = input.onViewDidLoad
             .flatMap { [weak self] _ -> AnyPublisher<String, Never> in
                 guard let self = self else {
                     return Just("텍스트를 가져오지 못했습니다.").eraseToAnyPublisher()
                 }
                 return Future(asyncFunc: self.testViewDidLoad)
                     .handleEvents(receiveOutput: { text in
-                        placeholderText.send(text) // 텍스트 저장
+                        self.placeholderTextSub.send(text) // 텍스트 저장
                     })
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
 
         // 첫글자 입력시 타이머 시작
-        let startTimer = input.textViewTextDidChanged
+        let startTimer = input.onTextViewTextChanged
             .filter { !$0.isEmpty }
             .first()
             .flatMap { [weak self] _ -> AnyPublisher<Int, Never> in
@@ -72,27 +71,28 @@ final class TypingViewModel: BaseViewModelType {
         startTimer
             .sink { [weak self] seconds in
                 guard let self = self else { return }
-                let wpm = self.typingCalc.calculateWPM(count: currentText.value.count, elapsedTime: TimeInterval(seconds))
 
-                elapsedTimeSub.send(seconds)
-                updateWPMTextSub.send(wpm)
+                let wpm = self.typingCalc.calculateWPM(count: currentTextSub.value.count, elapsedTime: TimeInterval(seconds))
+
+                self.elapsedTimeSub.send(seconds)
+                self.wpmSub.send(wpm)
             }
             .store(in: &cancellables)
 
         // 텍스트 입력시 WPM 업데이트
-        input.textViewTextDidChanged
+        input.onTextViewTextChanged
             .sink { [weak self] text in
                 guard let self = self else { return }
-                currentText.send(text)
+                self.currentTextSub.send(text)
 
                 let wpm = self.typingCalc.calculateWPM(count: text.count, elapsedTime: TimeInterval(self.timerManager.getCount()))
-                updateWPMTextSub.send(wpm)
+                self.wpmSub.send(wpm)
             }
             .store(in: &cancellables)
 
         // 글자 다 입력하면
-        currentText
-            .combineLatest(placeholderText)
+        currentTextSub
+            .combineLatest(placeholderTextSub)
             .filter { !$0.0.isEmpty && $0.0 == $0.1 }
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -101,34 +101,10 @@ final class TypingViewModel: BaseViewModelType {
             }
             .store(in: &cancellables)
 
-        let syncContentOffset = input.textViewContentOffsetDidChange
-            .combineLatest(input.keyboardHeight)
-            .map { offset, height in
-                var adjustedOffset = offset
-                let keyboardHeight = height.0
-                let screenHeight = height.1
-                
-                let keyboardTopY = screenHeight - keyboardHeight
-                
-                if offset.y > keyboardTopY {
-                    adjustedOffset.y = keyboardTopY
-                }
-                
-                return adjustedOffset
-            }
-            .removeDuplicates() // offset이 같은값이면 무시
-            .eraseToAnyPublisher()
-        
-        let keyboardHeight = input.keyboardHeight
-            .map { $0.0 }
-            .eraseToAnyPublisher()
-
-        return Output(updatePlaceholder: updatePlaceholder,
-                      updateElapsedTime: elapsedTimeSub.eraseToAnyPublisher(),
-                      updateWPMText: updateWPMTextSub.eraseToAnyPublisher(),
-                      showSummaryView: showSummaryView.eraseToAnyPublisher(),
-                      textViewSyncContentOffsetDidChange: syncContentOffset,
-                      updateTextViewBottomInset: keyboardHeight)
+        return Output(placeholderTextUpdated: updatePlaceholder,
+                      elapsedTimeUpdated: elapsedTimeSub.eraseToAnyPublisher(),
+                      wpmUpdated: wpmSub.eraseToAnyPublisher(),
+                      summaryViewPresented: showSummaryView.eraseToAnyPublisher())
     }
 
     func testViewDidLoad() async throws -> String {

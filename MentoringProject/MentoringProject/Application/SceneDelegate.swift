@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         mainVC.view.backgroundColor = .white
 
         let navigationViewController = UINavigationController(rootViewController: mainVC)
-        navigationViewController.setNavigationBarHidden(true, animated: false)
+//        navigationViewController.setNavigationBarHidden(true, animated: false)
 
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
