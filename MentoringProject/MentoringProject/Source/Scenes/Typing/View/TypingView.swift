@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 final class TypingView: BaseView {
     private let speedView = TypingSpeedView()
     private let typingView = TypingTextView(typingInputAccessoryView: TypingInputAccessoryView())
+    
+    public var textViewPublisher: AnyPublisher<String, Never> {
+        return typingView.textViewPublisher
+    }
 
     override func configureLayout() {
         addSubview(speedView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(30)])
@@ -18,12 +23,12 @@ final class TypingView: BaseView {
     
     // MARK: speedView
 
-    func updateTimeLabel(seconds: Int) {
+    func updateTimeLabel(_ seconds: Int) {
         speedView.updateTimerlabel(seconds: seconds)
     }
     
-    func updateWPMLabel(wpm: Int) {
-        speedView.updateSpeedLabel(wpm: wpm)
+    func updateWPMLabel(_ wpm: Int) {
+        speedView.updateWPMLabel(wpm)
     }
     
     // MARK: typingView
@@ -32,7 +37,7 @@ final class TypingView: BaseView {
         typingView.setTextViewFirstResponder()
     }
     
-    func setTextViewStr(str: String) {
-        typingView.setTextViewStr(str: str)
+    func setPlaceholderText(_ text: String) {
+        typingView.setPlaceholderText(text)
     }
 }

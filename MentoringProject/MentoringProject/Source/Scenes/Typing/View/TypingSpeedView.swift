@@ -43,7 +43,7 @@ final class TypingSpeedView: BaseView {
         backgroundColor = .black
     }
     
-    func updateSpeedLabel(wpm: Int) {
+    func updateWPMLabel(_ wpm: Int) {
         let fullText = "WPM \(wpm)"
         let attributedText = NSMutableAttributedString(string: fullText)
         

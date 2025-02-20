@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class TypingTextView: BaseView {
     private let typingPlaceholderTextView: UITextView = {
@@ -36,6 +37,11 @@ final class TypingTextView: BaseView {
     
     private var typingInputAccessoryView: TypingInputAccessoryView
     
+    // 퍼블리셔 외부에서 사용가능하도록
+    public var textViewPublisher: AnyPublisher<String, Never> {
+        return typingTextView.textPublisher
+    }
+    
     init(typingInputAccessoryView: TypingInputAccessoryView) {
         self.typingInputAccessoryView = typingInputAccessoryView
         super.init(frame: .zero)
@@ -64,8 +70,7 @@ final class TypingTextView: BaseView {
         typingTextView.becomeFirstResponder()
     }
     
-    func setTextViewStr(str: String) {
-        typingPlaceholderTextView.text = str
-//        typingPlaceholderTextView.setLineSpacing(10, textColor: .gray300)
+    func setPlaceholderText(_ text: String) {
+        typingPlaceholderTextView.text = text
     }
 }
