@@ -13,9 +13,12 @@ class TypingViewController: BaseViewController {
     private let rootView = TypingView()
 
     private let viewModel: TypingViewModel
+    private let textViewScrollManager: TextViewScrollManager
 
     init(viewModel: TypingViewModel) {
         self.viewModel = viewModel
+        self.textViewScrollManager = TextViewScrollManager(textViews: rootView.scrollableTextViews,
+                                                           keyboardObserver: KeyboardObserver())
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -33,6 +36,8 @@ class TypingViewController: BaseViewController {
 
         bind()
         configurNavigationBar()
+        
+        rootView.activeTextView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -58,7 +63,7 @@ class TypingViewController: BaseViewController {
             .store(in: &cancellables)
 
         // WPM 업데이트
-        output.elapsedTimeUpdated
+        output.wpmUpdated
             .receive(on: DispatchQueue.main)
             .sink { [weak self] wpm in
                 guard let self = self else { return }
@@ -83,7 +88,7 @@ class TypingViewController: BaseViewController {
             }
             .store(in: &cancellables)
         
-//        // TODO: 입력 글자 검사 기능
+        // TODO: 입력 글자 검사 기능
     }
 }
 
@@ -107,5 +112,17 @@ extension TypingViewController {
     func showSummaryViewController() {
         let vc = SummaryViewController(viewModel: SummaryViewModel())
         present(vc, animated: true)
+    }
+}
+
+extension TypingViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        textViewScrollManager.scrollToCursorPosition()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == rootView.activeTextView {
+            textViewScrollManager.mirrorScrollPosition()
+        }
     }
 }

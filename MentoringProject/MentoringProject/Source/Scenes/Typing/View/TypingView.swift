@@ -12,10 +12,18 @@ final class TypingView: BaseView {
     private let speedView = TypingSpeedView()
     private let typingView = TypingTextView(typingInputAccessoryView: TypingInputAccessoryView())
     
-    public var textViewPublisher: AnyPublisher<String, Never> {
+    var textViewPublisher: AnyPublisher<String, Never> {
         return typingView.textViewPublisher
     }
-
+    
+    var scrollableTextViews: [UITextView] {
+        return typingView.scrollTextViews
+    }
+    
+    var activeTextView: UITextView {
+        return typingView.activeTextView
+    }
+    
     override func configureLayout() {
         addSubview(speedView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(30)])
         addSubview(typingView, autoLayout: [.topNext(to: speedView, constant: 0), .leading(0), .trailing(0), .bottom(0)])
