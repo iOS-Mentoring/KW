@@ -25,7 +25,7 @@ extension HistoryViewController {
         backButton.setImage(.iconLeftArrow, for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
 
-        setLeftBarButtonItem(item: backButton)
+//        setLeftBarButtonItem(item: backButton)
     }
 }
 
