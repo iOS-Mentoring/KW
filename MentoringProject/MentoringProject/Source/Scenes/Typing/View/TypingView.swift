@@ -5,8 +5,8 @@
 //  Created by PKW on 2/18/25.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 final class TypingView: BaseView {
     private let speedView = TypingSpeedView()
@@ -29,6 +29,10 @@ final class TypingView: BaseView {
         addSubview(typingView, autoLayout: [.topNext(to: speedView, constant: 0), .leading(0), .trailing(0), .bottom(0)])
     }
     
+    override func configureView() {
+        backgroundColor = .white
+    }
+    
     // MARK: speedView
 
     func updateTimeLabel(_ seconds: Int) {
@@ -47,5 +51,9 @@ final class TypingView: BaseView {
     
     func setPlaceholderText(_ text: String) {
         typingView.setPlaceholderText(text)
+    }
+    
+    func updateHighlightedText(_ text: NSAttributedString) {
+        typingView.updateHighlightedText(text)
     }
 }

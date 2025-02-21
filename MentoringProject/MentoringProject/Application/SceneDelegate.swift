@@ -16,10 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         let mainVC = TypingViewController(viewModel: TypingViewModel())
-        mainVC.view.backgroundColor = .white
-
+        
         let navigationViewController = UINavigationController(rootViewController: mainVC)
-//        navigationViewController.setNavigationBarHidden(true, animated: false)
 
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()

@@ -5,33 +5,27 @@
 //  Created by PKW on 2/18/25.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 final class TypingTextView: BaseView {
     private let typingPlaceholderTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .gray200
         textView.font = UIFont.pretendard(type: .pretendardMedium, size: 20)
-        
+        textView.backgroundColor = .clear
         textView.textContainer.lineFragmentPadding = 0
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
+        textView.textContainerInset = UIEdgeInsets(top: 21, left: 20, bottom: 21, right: 20)
         textView.isEditable = false
         
         return textView
     }()
     
-   private let typingTextView: UITextView = {
+    private let typingTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .clear
         textView.font = UIFont.pretendard(type: .pretendardMedium, size: 20)
-        
+        textView.backgroundColor = .clear
         textView.textContainer.lineFragmentPadding = 0
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
-        
-        textView.backgroundColor = .red
-        
-        textView.alpha = 0.2
+        textView.textContainerInset = UIEdgeInsets(top: 21, left: 20, bottom: 21, right: 20)
         
         return textView
     }()
@@ -51,12 +45,12 @@ final class TypingTextView: BaseView {
         return [typingTextView, typingPlaceholderTextView]
     }
     
-    
     init(typingInputAccessoryView: TypingInputAccessoryView) {
         self.typingInputAccessoryView = typingInputAccessoryView
         super.init(frame: .zero)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,6 +66,7 @@ final class TypingTextView: BaseView {
     }
     
     override func configureView() {
+        backgroundColor = .gray200
         typingTextView.inputAccessoryView = typingInputAccessoryView
     }
     
@@ -81,5 +76,10 @@ final class TypingTextView: BaseView {
     
     func setPlaceholderText(_ text: String) {
         typingPlaceholderTextView.text = text
+        typingPlaceholderTextView.setLineSpacing(10)
+    }
+    
+    func updateHighlightedText(_ text: NSAttributedString) {
+        typingTextView.attributedText = text
     }
 }
