@@ -36,7 +36,7 @@ class TypingViewController: BaseViewController {
 
         bind()
         configurNavigationBar()
-        
+
         rootView.activeTextView.delegate = self
     }
 
@@ -52,7 +52,7 @@ class TypingViewController: BaseViewController {
             onTextViewTextChanged: rootView.textViewPublisher)
 
         let output = viewModel.transform(from: input)
-        
+
         // 필사 텍스트 업데이트
         output.placeholderTextUpdated
             .receive(on: DispatchQueue.main)
@@ -70,8 +70,7 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateWPMLabel(wpm)
             }
             .store(in: &cancellables)
-        
-        
+
         output.elapsedTimeUpdated
             .receive(on: DispatchQueue.main)
             .sink { [weak self] seconds in
@@ -79,7 +78,7 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateTimeLabel(seconds)
             }
             .store(in: &cancellables)
-        
+
         output.summaryViewPresented
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -87,7 +86,7 @@ class TypingViewController: BaseViewController {
                 self.showSummaryViewController()
             }
             .store(in: &cancellables)
-        
+
         // TODO: 입력 글자 검사 기능
     }
 }
@@ -119,7 +118,7 @@ extension TypingViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textViewScrollManager.scrollToCursorPosition()
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == rootView.activeTextView {
             textViewScrollManager.mirrorScrollPosition()
