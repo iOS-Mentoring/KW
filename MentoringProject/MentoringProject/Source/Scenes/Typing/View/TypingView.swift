@@ -52,4 +52,8 @@ final class TypingView: BaseView {
     func setPlaceholderText(_ text: String) {
         typingView.setPlaceholderText(text)
     }
+    
+    func updateHighlightedText(_ text: NSAttributedString) {
+        typingView.updateHighlightedText(text)
+    }
 }

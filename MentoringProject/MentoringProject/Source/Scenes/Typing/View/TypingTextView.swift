@@ -29,20 +29,6 @@ final class TypingTextView: BaseView {
         
         return textView
     }()
-    
-    private var typingText: String = "" {
-        didSet {
-            typingTextView.text = typingText
-            typingTextView.setLineSpacing(10, textColor: .black)
-        }
-    }
-    
-    private var typingPlaceholderText: String = "" {
-        didSet {
-            typingPlaceholderTextView.text = typingPlaceholderText
-            typingPlaceholderTextView.setLineSpacing(10, textColor: .gray300)
-        }
-    }
 
     private var typingInputAccessoryView: TypingInputAccessoryView
     
@@ -89,6 +75,11 @@ final class TypingTextView: BaseView {
     }
     
     func setPlaceholderText(_ text: String) {
-        typingPlaceholderText = text
+        typingPlaceholderTextView.text = text
+        typingPlaceholderTextView.setLineSpacing(10)
+    }
+    
+    func updateHighlightedText(_ text: NSAttributedString) {
+        typingTextView.attributedText = text
     }
 }

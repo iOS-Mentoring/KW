@@ -18,13 +18,14 @@ final class TypingViewModel: BaseViewModelType {
     // 뷰모델 -> 뷰
     struct Output {
         let placeholderTextUpdated: AnyPublisher<String, Never> // 텍스트 뷰 플레이스홀더 업데이트
+        let highlightedTextUpdated: AnyPublisher<NSAttributedString, Never>
         let elapsedTimeUpdated: AnyPublisher<Int, Never> // 타이머 업데이트
         let wpmUpdated: AnyPublisher<Int, Never> // WPM 업데이트
         let summaryViewPresented: AnyPublisher<Void, Never> // 결과 화면 이동
     }
 
     private let timerManager: TimerManager
-    private let typingCalc: TypingSpeedCalculator // 이름 바꿔
+    private let typingCalc: TypingCalculator // 이름 바꿔
     private var cancellables = Set<AnyCancellable>()
 
     private let elapsedTimeSub = CurrentValueSubject<Int, Never>(0)
@@ -36,12 +37,13 @@ final class TypingViewModel: BaseViewModelType {
 
     init() {
         self.timerManager = TimerManager()
-        self.typingCalc = TypingSpeedCalculator()
+        self.typingCalc = TypingCalculator()
     }
 
     func transform(from input: Input) -> Output {
         // PassthroughSubject 서브젝트들은 언제 사용해야하지?
-        let showSummaryView = PassthroughSubject<Void, Never>()
+        let showSummaryViewSub = PassthroughSubject<Void, Never>()
+        let highlightedTextSub = PassthroughSubject<NSAttributedString, Never>()
 
         // 서버에서 받아오는 방식?으로 플레이스홀더 텍스트 적용
         let updatePlaceholder = input.onViewDidLoad
@@ -72,10 +74,11 @@ final class TypingViewModel: BaseViewModelType {
             .sink { [weak self] seconds in
                 guard let self = self else { return }
 
-                let wpm = self.typingCalc.calculateWPM(count: currentTextSub.value.count, elapsedTime: TimeInterval(seconds))
+                let correctText = self.typingCalc.getCorrectCharacters(inputText: currentTextSub.value, placeholderText: placeholderTextSub.value)
+                let cpm = self.typingCalc.calculateCPM(correctText: correctText, elapsedTime: TimeInterval(seconds))
 
                 self.elapsedTimeSub.send(seconds)
-                self.wpmSub.send(wpm)
+                self.wpmSub.send(cpm)
             }
             .store(in: &cancellables)
 
@@ -85,8 +88,10 @@ final class TypingViewModel: BaseViewModelType {
                 guard let self = self else { return }
                 self.currentTextSub.send(text)
 
-                let wpm = self.typingCalc.calculateWPM(count: text.count, elapsedTime: TimeInterval(self.timerManager.getCount()))
-                self.wpmSub.send(wpm)
+                let correctText = self.typingCalc.getCorrectCharacters(inputText: text, placeholderText: placeholderTextSub.value)
+                let cpm = self.typingCalc.calculateCPM(correctText: correctText, elapsedTime: TimeInterval(self.timerManager.getCount()))
+
+                self.wpmSub.send(cpm)
             }
             .store(in: &cancellables)
 
@@ -97,21 +102,30 @@ final class TypingViewModel: BaseViewModelType {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.timerManager.stop()
-                showSummaryView.send()
+                showSummaryViewSub.send()
             }
             .store(in: &cancellables)
-        
-        
+
+        // 글자 검사하기
+        input.onTextViewTextChanged
+            .sink { [weak self] text in
+                guard let self = self else { return }
+
+                let highlightedText = self.typingCalc.getFormattedText(inputText: text, placeholderText: placeholderTextSub.value)
+                highlightedTextSub.send(highlightedText)
+            }
+            .store(in: &cancellables)
 
         return Output(placeholderTextUpdated: updatePlaceholder,
+                      highlightedTextUpdated: highlightedTextSub.eraseToAnyPublisher(),
                       elapsedTimeUpdated: elapsedTimeSub.eraseToAnyPublisher(),
                       wpmUpdated: wpmSub.eraseToAnyPublisher(),
-                      summaryViewPresented: showSummaryView.eraseToAnyPublisher())
+                      summaryViewPresented: showSummaryViewSub.eraseToAnyPublisher())
     }
 
     func testViewDidLoad() async throws -> String {
         try await Task.sleep(nanoseconds: 500_000_000) // 0.5초 지연
 //        return "1111"
-        return "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다.어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
+        return "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
     }
 }

@@ -70,9 +70,8 @@
 		16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601382D63541100A66456 /* SummaryReferenceView.swift */; };
 		16F601F32D63923100A66456 /* TypingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601F22D63923100A66456 /* TypingViewController.swift */; };
 		16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */; };
-		16F6FABF2D5B28BF00A66456 /* TypingSpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */; };
+		16F6FABF2D5B28BF00A66456 /* TypingCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABE2D5B28BF00A66456 /* TypingCalculator.swift */; };
 		16F6FAC12D5B2BC300A66456 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC02D5B2BC300A66456 /* TimerManager.swift */; };
-		16F6FAC32D5B31C600A66456 /* TypingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC22D5B31C400A66456 /* TypingValidator.swift */; };
 		16F6FAC72D5B435200A66456 /* Int+convertTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC62D5B435200A66456 /* Int+convertTime.swift */; };
 		16F88F4D2D5487E200BF7CDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F4C2D5487E200BF7CDE /* AppDelegate.swift */; };
 		16F88F4F2D5487E200BF7CDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F4E2D5487E200BF7CDE /* SceneDelegate.swift */; };
@@ -162,9 +161,8 @@
 		16F601382D63541100A66456 /* SummaryReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryReferenceView.swift; sourceTree = "<group>"; };
 		16F601F22D63923100A66456 /* TypingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingViewController.swift; sourceTree = "<group>"; };
 		16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingSpeedModel.swift; sourceTree = "<group>"; };
-		16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypingSpeedCalculator.swift; path = MentoringProject/Source/Models/TypingSpeedCalculator.swift; sourceTree = SOURCE_ROOT; };
+		16F6FABE2D5B28BF00A66456 /* TypingCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypingCalculator.swift; path = MentoringProject/Source/Models/TypingCalculator.swift; sourceTree = SOURCE_ROOT; };
 		16F6FAC02D5B2BC300A66456 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerManager.swift; path = MentoringProject/Source/Models/TimerManager.swift; sourceTree = SOURCE_ROOT; };
-		16F6FAC22D5B31C400A66456 /* TypingValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingValidator.swift; sourceTree = "<group>"; };
 		16F6FAC62D5B435200A66456 /* Int+convertTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertTime.swift"; sourceTree = "<group>"; };
 		16F88F492D5487E200BF7CDE /* MentoringProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MentoringProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F88F4C2D5487E200BF7CDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -335,8 +333,7 @@
 		16F6FABB2D5B284E00A66456 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				16F6FAC22D5B31C400A66456 /* TypingValidator.swift */,
-				16F6FABE2D5B28BF00A66456 /* TypingSpeedCalculator.swift */,
+				16F6FABE2D5B28BF00A66456 /* TypingCalculator.swift */,
 				16F6FAC02D5B2BC300A66456 /* TimerManager.swift */,
 			);
 			path = Helpers;
@@ -645,7 +642,7 @@
 				16F504BE2D54AB2800EE67F0 /* UITextField+placeholder.swift in Sources */,
 				16F504BA2D54AB2800EE67F0 /* UICollectionView+register.swift in Sources */,
 				16F504A42D54AB2000EE67F0 /* Combine+BehaviorSubject.swift in Sources */,
-				16F6FABF2D5B28BF00A66456 /* TypingSpeedCalculator.swift in Sources */,
+				16F6FABF2D5B28BF00A66456 /* TypingCalculator.swift in Sources */,
 				16F504CB2D54AB2800EE67F0 /* UITableView+register.swift in Sources */,
 				16F601F32D63923100A66456 /* TypingViewController.swift in Sources */,
 				164E03312D563AB20029C7AD /* BaseViewController.swift in Sources */,
@@ -675,7 +672,6 @@
 				163DC9AF2D65E8B2009CCB5D /* UIView+capture.swift in Sources */,
 				16F504A52D54AB2000EE67F0 /* Date+KoreanStyleFormater.swift in Sources */,
 				16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */,
-				16F6FAC32D5B31C600A66456 /* TypingValidator.swift in Sources */,
 				16F504C92D54AB2800EE67F0 /* UIView+shadow.swift in Sources */,
 				16F600A42D62F9AA00A66456 /* SummaryView.swift in Sources */,
 				163DC7AF2D646885009CCB5D /* BaseViewModelType.swift in Sources */,

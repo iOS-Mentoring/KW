@@ -87,7 +87,13 @@ class TypingViewController: BaseViewController {
             }
             .store(in: &cancellables)
 
-        // TODO: 입력 글자 검사 기능
+        output.highlightedTextUpdated
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] text in
+                guard let self = self else { return }
+                self.rootView.updateHighlightedText(text)
+            }
+            .store(in: &cancellables)
     }
 }
 

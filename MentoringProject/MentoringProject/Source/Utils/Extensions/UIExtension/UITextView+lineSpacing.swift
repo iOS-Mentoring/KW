@@ -8,7 +8,7 @@
 import UIKit
 
 extension UITextView {
-    func setLineSpacing(_ spacing: CGFloat, textColor: UIColor) {
+    func setLineSpacing(_ spacing: CGFloat) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = spacing
 
@@ -17,7 +17,7 @@ extension UITextView {
             attributes: [
                 .paragraphStyle: paragraphStyle,
                 .font: self.font ?? UIFont.systemFont(ofSize: 16),
-                .foregroundColor: textColor
+                .foregroundColor: UIColor.gray300
             ]
         )
 
