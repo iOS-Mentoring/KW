@@ -94,6 +94,14 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateHighlightedText(text)
             }
             .store(in: &cancellables)
+
+        output.typingStarted
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.rootView.startProgress()
+            }
+            .store(in: &cancellables)
     }
 }
 

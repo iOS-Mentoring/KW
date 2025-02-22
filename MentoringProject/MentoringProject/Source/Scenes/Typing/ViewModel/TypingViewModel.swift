@@ -22,6 +22,7 @@ final class TypingViewModel: BaseViewModelType {
         let elapsedTimeUpdated: AnyPublisher<Int, Never> // 타이머 업데이트
         let wpmUpdated: AnyPublisher<Int, Never> // WPM 업데이트
         let summaryViewPresented: AnyPublisher<Void, Never> // 결과 화면 이동
+        let typingStarted: AnyPublisher<Void, Never>
     }
 
     private let timerManager: TimerManager
@@ -58,14 +59,19 @@ final class TypingViewModel: BaseViewModelType {
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
-
-        // 첫글자 입력시 타이머 시작
-        let startTimer = input.onTextViewTextChanged
+        
+        // 타이핑 시작
+        let startTyping = input.onTextViewTextChanged
             .filter { !$0.isEmpty }
+            .map { _ in return () }
             .first()
+            .eraseToAnyPublisher()
+        
+        // 타이머 시작
+        let startTimer = startTyping
             .flatMap { [weak self] _ -> AnyPublisher<Int, Never> in
-                guard let self else { return Empty().eraseToAnyPublisher() }
-                return self.timerManager.start()
+                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                return timerManager.start()
             }
             .eraseToAnyPublisher()
 
@@ -120,7 +126,8 @@ final class TypingViewModel: BaseViewModelType {
                       highlightedTextUpdated: highlightedTextSub.eraseToAnyPublisher(),
                       elapsedTimeUpdated: elapsedTimeSub.eraseToAnyPublisher(),
                       wpmUpdated: wpmSub.eraseToAnyPublisher(),
-                      summaryViewPresented: showSummaryViewSub.eraseToAnyPublisher())
+                      summaryViewPresented: showSummaryViewSub.eraseToAnyPublisher(),
+                      typingStarted: startTyping)
     }
 
     func testViewDidLoad() async throws -> String {

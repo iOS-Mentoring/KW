@@ -33,14 +33,22 @@ final class TypingSpeedView: BaseView {
         label.font = UIFont.pretendard(type: .pretendardLight, size: 13)
         return label
     }()
+        
+    private let progressView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .primaryRed
+        return view
+    }()
     
     override func configureLayout() {
+        addSubview(progressView, autoLayout: [.leading(0), .top(0), .bottom(0), .width(UIScreen.main.bounds.width)])
         addSubview(speedLabel, autoLayout: [.leading(20), .centerY(0)])
         addSubview(timeLabel, autoLayout: [.trailing(20), .centerY(0)])
     }
     
     override func configureView() {
         backgroundColor = .black
+        progressView.isHidden = true
     }
     
     func updateWPMLabel(_ wpm: Int) {
@@ -57,5 +65,20 @@ final class TypingSpeedView: BaseView {
     
     func updateTimerlabel(seconds: Int) {
         timeLabel.text = "\(seconds.formattedTime())"
+    }
+    
+    func startProgress() {
+        progressView.isHidden = false
+        
+        UIView.animate(withDuration: 60, delay: 0, options: .curveLinear) {
+            self.progressView.updateConstraint(of: .width, constant: 0)
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func resetProgress() {
+        progressView.isHidden = true
+        progressView.layer.removeAllAnimations()
+        progressView.updateConstraint(of: .width, constant: UIScreen.main.bounds.width)
     }
 }

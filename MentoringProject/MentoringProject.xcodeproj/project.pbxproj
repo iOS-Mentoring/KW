@@ -461,10 +461,10 @@
 		16F88FD22D548B1A00BF7CDE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				163DC63B2D6396A1009CCB5D /* TypingView.swift */,
+				164E03322D563AC10029C7AD /* TypingInputAccessoryView.swift */,
 				164E03342D563AC50029C7AD /* TypingSpeedView.swift */,
 				163DC63D2D6398D6009CCB5D /* TypingTextView.swift */,
-				164E03322D563AC10029C7AD /* TypingInputAccessoryView.swift */,
+				163DC63B2D6396A1009CCB5D /* TypingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

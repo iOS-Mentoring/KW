@@ -43,6 +43,14 @@ final class TypingView: BaseView {
         speedView.updateWPMLabel(wpm)
     }
     
+    func startProgress() {
+        speedView.startProgress()
+    }
+    
+    func resetProgress() {
+        speedView.resetProgress()
+    }
+    
     // MARK: typingView
 
     func setTextViewFirstResponder() {
