@@ -28,17 +28,13 @@ class CalendarCell: UICollectionViewCell {
     
     private let dayLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.text = "Mon"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .black
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "30"
+        label.textColor = .black
         return label
     }()
     
@@ -46,7 +42,6 @@ class CalendarCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .black
         view.layer.cornerRadius = 2
-        view.isHidden = false
         return view
     }()
     
@@ -77,6 +72,25 @@ class CalendarCell: UICollectionViewCell {
     }
     
     func configureView() {
-        contentView.backgroundColor = .blue
+        contentView.backgroundColor = .clear
+    }
+    
+    func configurData(dayOfWeek: String, day: String, isToday: Bool) {
+        dayLabel.setStyledText(text: dayOfWeek,
+                               font: .pretendard(type: .pretendardRegular, size: 10),
+                               letterSpacing: -0.4,
+                               textAlignment: .center)
+        
+        dateLabel.setStyledText(text: day,
+                                font: .pretendard(type: .pretendardBold, size: 14),
+                                letterSpacing: -0.56,
+                                textAlignment: .center)
+        
+        selectionBackgroundView.backgroundColor = isToday ? UIColor.gray200 : .clear
+        selectionDot.backgroundColor = isToday ? .black : .clear
+    }
+    
+    func setDayLabelColor() {
+        dayLabel.textColor = .red
     }
 }

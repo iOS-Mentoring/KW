@@ -5,6 +5,7 @@
 //  Created by PKW on 2/23/25.
 //
 
+import Combine
 import UIKit
 
 class HistoryCalendarView: BaseView {
@@ -24,6 +25,28 @@ class HistoryCalendarView: BaseView {
         return collectionView
     }()
     
+    private var currentWeekStart: Date = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "ko_KR")
+        calendar.firstWeekday = 1
+        let today = Date()
+        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
+        return calendar.date(from: components) ?? today
+    }()
+    
+    private var weekDates: [Date] {
+        let calendar = Calendar(identifier: .gregorian)
+        var dates: [Date] = []
+        for offset in 0 ..< 7 {
+            if let date = calendar.date(byAdding: .day, value: offset, to: currentWeekStart) {
+                dates.append(date)
+            }
+        }
+        return dates
+    }
+    
+    private let selectedDatePublisher = PassthroughSubject<Date, Never>()
+    
     override func configureLayout() {
         addSubview(collectionView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
     }
@@ -40,7 +63,6 @@ class HistoryCalendarView: BaseView {
 
 extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let availableWidth = collectionView.bounds.width - 20 - 20
         let cellWidth = availableWidth / 7
         let cellHeight = collectionView.bounds.height - 32
@@ -50,7 +72,10 @@ extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
 }
 
 extension HistoryCalendarView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("1111")
+    }
 }
 
 extension HistoryCalendarView: UICollectionViewDataSource {
@@ -59,12 +84,28 @@ extension HistoryCalendarView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return weekDates.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(CalendarCell.self, for: indexPath)
-        cell.backgroundColor = .black
+        let date = weekDates[indexPath.item]
+        let calendar = Calendar(identifier: .gregorian)
+        
+        let weekdaySymbols = calendar.shortWeekdaySymbols
+        let weekdayIndex = calendar.component(.weekday, from: date) - 1
+        
+        let dayOfWeek = weekdaySymbols[weekdayIndex]
+        let day = calendar.component(.day, from: date)
+    
+        let isToday = Calendar.current.isDate(date, inSameDayAs: Date())
+        
+        if indexPath.item == 0 {
+            cell.setDayLabelColor()
+        }
+        
+        cell.configurData(dayOfWeek: dayOfWeek, day: "\(day)", isToday: isToday)
+    
         return cell
     }
 }
