@@ -9,8 +9,8 @@ import Combine
 import UIKit
 
 final class TypingTextView: BaseView {
-    private let typingPlaceholderTextView: UITextView = {
-        let textView = UITextView()
+    private let typingPlaceholderTextView: BaseTextView = {
+        let textView = BaseTextView()
         textView.font = UIFont.pretendard(type: .pretendardMedium, size: 20)
         textView.backgroundColor = .clear
         textView.textContainer.lineFragmentPadding = 0
@@ -20,8 +20,8 @@ final class TypingTextView: BaseView {
         return textView
     }()
     
-    private let typingTextView: UITextView = {
-        let textView = UITextView()
+    private let typingTextView: BaseTextView = {
+        let textView = BaseTextView()
         textView.font = UIFont.pretendard(type: .pretendardMedium, size: 20)
         textView.backgroundColor = .clear
         textView.textContainer.lineFragmentPadding = 0
@@ -68,6 +68,8 @@ final class TypingTextView: BaseView {
     override func configureView() {
         backgroundColor = .gray200
         typingTextView.inputAccessoryView = typingInputAccessoryView
+        
+        typingTextView.mirrorTextView = typingPlaceholderTextView
     }
     
     func setTextViewFirstResponder() {
