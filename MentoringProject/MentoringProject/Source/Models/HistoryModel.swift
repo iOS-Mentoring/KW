@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct TypingSpeedModel {
-    let characterCount: Int
-    let wpm: Int
+struct HistoryModel {
+    // 날짜
+    // WPM
+    // ACC
+    // 필사 텍스트
+    // 제목
+    // 작가
 }

@@ -10,6 +10,9 @@
 		1601D9DF2D6872D6008EE652 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601D9DE2D6872D6008EE652 /* TimerManager.swift */; };
 		1601D9E12D6872F5008EE652 /* TypingSpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601D9E02D6872F5008EE652 /* TypingSpeedCalculator.swift */; };
 		1601DA9F2D698E4B008EE652 /* BaseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DA9E2D698E4B008EE652 /* BaseTextView.swift */; };
+		1601DAA32D6B0D02008EE652 /* HistoryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DAA22D6B0D02008EE652 /* HistoryCalendarView.swift */; };
+		1601DAA52D6B0E5F008EE652 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DAA42D6B0E5F008EE652 /* HistoryView.swift */; };
+		1601DAA82D6B1051008EE652 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DAA72D6B1051008EE652 /* CalendarCell.swift */; };
 		163DC63C2D6396A1009CCB5D /* TypingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63B2D6396A1009CCB5D /* TypingView.swift */; };
 		163DC63E2D6398D6009CCB5D /* TypingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63D2D6398D6009CCB5D /* TypingTextView.swift */; };
 		163DC7AF2D646885009CCB5D /* BaseViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */; };
@@ -71,7 +74,7 @@
 		16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601362D63538E00A66456 /* SummaryPerformanceView.swift */; };
 		16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601382D63541100A66456 /* SummaryReferenceView.swift */; };
 		16F601F32D63923100A66456 /* TypingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F601F22D63923100A66456 /* TypingViewController.swift */; };
-		16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */; };
+		16F6FABD2D5B287B00A66456 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FABC2D5B287B00A66456 /* HistoryModel.swift */; };
 		16F6FAC72D5B435200A66456 /* Int+convertTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6FAC62D5B435200A66456 /* Int+convertTime.swift */; };
 		16F88F4D2D5487E200BF7CDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F4C2D5487E200BF7CDE /* AppDelegate.swift */; };
 		16F88F4F2D5487E200BF7CDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F88F4E2D5487E200BF7CDE /* SceneDelegate.swift */; };
@@ -102,6 +105,9 @@
 		1601D9DE2D6872D6008EE652 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		1601D9E02D6872F5008EE652 /* TypingSpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingSpeedCalculator.swift; sourceTree = "<group>"; };
 		1601DA9E2D698E4B008EE652 /* BaseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextView.swift; sourceTree = "<group>"; };
+		1601DAA22D6B0D02008EE652 /* HistoryCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCalendarView.swift; sourceTree = "<group>"; };
+		1601DAA42D6B0E5F008EE652 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		1601DAA72D6B1051008EE652 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		163DC63B2D6396A1009CCB5D /* TypingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingView.swift; sourceTree = "<group>"; };
 		163DC63D2D6398D6009CCB5D /* TypingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextView.swift; sourceTree = "<group>"; };
 		163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelType.swift; sourceTree = "<group>"; };
@@ -162,7 +168,7 @@
 		16F601362D63538E00A66456 /* SummaryPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPerformanceView.swift; sourceTree = "<group>"; };
 		16F601382D63541100A66456 /* SummaryReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryReferenceView.swift; sourceTree = "<group>"; };
 		16F601F22D63923100A66456 /* TypingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingViewController.swift; sourceTree = "<group>"; };
-		16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingSpeedModel.swift; sourceTree = "<group>"; };
+		16F6FABC2D5B287B00A66456 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		16F6FAC62D5B435200A66456 /* Int+convertTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertTime.swift"; sourceTree = "<group>"; };
 		16F88F492D5487E200BF7CDE /* MentoringProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MentoringProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F88F4C2D5487E200BF7CDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +208,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1601DAA02D6B0CED008EE652 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1601DAA62D6B102A008EE652 /* Cell */,
+				1601DAA42D6B0E5F008EE652 /* HistoryView.swift */,
+				1601DAA22D6B0D02008EE652 /* HistoryCalendarView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1601DAA12D6B0CF4008EE652 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1601DAA62D6B102A008EE652 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1601DAA72D6B1051008EE652 /* CalendarCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		163DC7AD2D646827009CCB5D /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +356,8 @@
 		16F6FABA2D5B274C00A66456 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				1601DAA12D6B0CF4008EE652 /* ViewModel */,
+				1601DAA02D6B0CED008EE652 /* View */,
 				164E032D2D563AA40029C7AD /* HistoryViewController.swift */,
 			);
 			path = History;
@@ -400,7 +433,7 @@
 		16F88F7E2D5489C600BF7CDE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				16F6FABC2D5B287B00A66456 /* TypingSpeedModel.swift */,
+				16F6FABC2D5B287B00A66456 /* HistoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -642,7 +675,7 @@
 				16F504C72D54AB2800EE67F0 /* Keyboard+combine.swift in Sources */,
 				164E03282D563A0E0029C7AD /* NavigationBarView.swift in Sources */,
 				16F504CA2D54AB2800EE67F0 /* UIScreen+size.swift in Sources */,
-				16F6FABD2D5B287B00A66456 /* TypingSpeedModel.swift in Sources */,
+				16F6FABD2D5B287B00A66456 /* HistoryModel.swift in Sources */,
 				163DC63C2D6396A1009CCB5D /* TypingView.swift in Sources */,
 				164E03332D563AC10029C7AD /* TypingInputAccessoryView.swift in Sources */,
 				16F6FAC72D5B435200A66456 /* Int+convertTime.swift in Sources */,
@@ -650,9 +683,11 @@
 				164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */,
 				163DC91D2D647F28009CCB5D /* UITextView+combine.swift in Sources */,
 				16F504C52D54AB2800EE67F0 /* UILabel+estimatedSize.swift in Sources */,
+				1601DAA52D6B0E5F008EE652 /* HistoryView.swift in Sources */,
 				16F504C82D54AB2800EE67F0 /* UIImageView+animation.swift in Sources */,
 				16F504A12D54AB2000EE67F0 /* Collection+Index.swift in Sources */,
 				16F504A22D54AB2000EE67F0 /* Date+Formatted.swift in Sources */,
+				1601DAA82D6B1051008EE652 /* CalendarCell.swift in Sources */,
 				16F504BB2D54AB2800EE67F0 /* UIControl+combine.swift in Sources */,
 				16F600A22D62F91200A66456 /* BaseView.swift in Sources */,
 				16F88F4F2D5487E200BF7CDE /* SceneDelegate.swift in Sources */,
@@ -669,6 +704,7 @@
 				1601D9DF2D6872D6008EE652 /* TimerManager.swift in Sources */,
 				163DC7AF2D646885009CCB5D /* BaseViewModelType.swift in Sources */,
 				16F504BF2D54AB2800EE67F0 /* UIView+autolayout.swift in Sources */,
+				1601DAA32D6B0D02008EE652 /* HistoryCalendarView.swift in Sources */,
 				16F504BD2D54AB2800EE67F0 /* UIFont+named.swift in Sources */,
 				16F504BC2D54AB2800EE67F0 /* UIColor+hex.swift in Sources */,
 				16F601392D63541100A66456 /* SummaryReferenceView.swift in Sources */,
