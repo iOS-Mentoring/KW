@@ -56,6 +56,18 @@ class CalendarCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dayLabel.text = nil
+        dayLabel.textColor = .black
+        
+        dateLabel.text = nil
+        
+        selectionBackgroundView.backgroundColor = .clear
+        selectionDot.backgroundColor = .clear
+    }
+    
     func configurLayout() {
         selectionBackgroundView.addSubview(dateLabel, autoLayout: [.centerX(0), .centerY(0)])
         selectionBackgroundView.autoLayout([.width(30), .height(30)])

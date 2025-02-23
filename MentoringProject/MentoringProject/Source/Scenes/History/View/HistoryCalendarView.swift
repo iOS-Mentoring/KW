@@ -46,6 +46,7 @@ class HistoryCalendarView: BaseView {
     }
     
     private let selectedDatePublisher = PassthroughSubject<Date, Never>()
+    private var selectedIndexPath: IndexPath?
     
     override func configureLayout() {
         addSubview(collectionView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
@@ -73,8 +74,9 @@ extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
 
 extension HistoryCalendarView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print("1111")
+        // 셀 선택했을때 컬렉션뷰 업데이트
+        selectedIndexPath = indexPath
+        collectionView.reloadData()
     }
 }
 
@@ -97,14 +99,20 @@ extension HistoryCalendarView: UICollectionViewDataSource {
         
         let dayOfWeek = weekdaySymbols[weekdayIndex]
         let day = calendar.component(.day, from: date)
-    
-        let isToday = Calendar.current.isDate(date, inSameDayAs: Date())
         
         if indexPath.item == 0 {
             cell.setDayLabelColor()
         }
         
-        cell.configurData(dayOfWeek: dayOfWeek, day: "\(day)", isToday: isToday)
+        let isSelectedCell: Bool
+
+        if let selectedIndexPath = selectedIndexPath {
+            isSelectedCell = (selectedIndexPath == indexPath)
+        } else {
+            isSelectedCell = Calendar.current.isDate(date, inSameDayAs: Date())
+        }
+        
+        cell.configurData(dayOfWeek: dayOfWeek, day: "\(day)", isToday: isSelectedCell)
     
         return cell
     }
