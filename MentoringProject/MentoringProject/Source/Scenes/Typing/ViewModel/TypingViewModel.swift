@@ -22,6 +22,7 @@ final class TypingViewModel: BaseViewModelType {
         let elapsedTimeUpdated: AnyPublisher<Int, Never> // 타이머 업데이트
         let wpmUpdated: AnyPublisher<Int, Never> // WPM 업데이트
         let summaryViewPresented: AnyPublisher<Void, Never> // 결과 화면 이동
+        let typingStarted: AnyPublisher<Void, Never>
     }
 
     private let timerManager: TimerManager
@@ -58,14 +59,19 @@ final class TypingViewModel: BaseViewModelType {
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
-
-        // 첫글자 입력시 타이머 시작
-        let startTimer = input.onTextViewTextChanged
+        
+        // 타이핑 시작
+        let startTyping = input.onTextViewTextChanged
             .filter { !$0.isEmpty }
+            .map { _ in return () }
             .first()
+            .eraseToAnyPublisher()
+        
+        // 타이머 시작
+        let startTimer = startTyping
             .flatMap { [weak self] _ -> AnyPublisher<Int, Never> in
-                guard let self else { return Empty().eraseToAnyPublisher() }
-                return self.timerManager.start()
+                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                return timerManager.start()
             }
             .eraseToAnyPublisher()
 
@@ -120,12 +126,13 @@ final class TypingViewModel: BaseViewModelType {
                       highlightedTextUpdated: highlightedTextSub.eraseToAnyPublisher(),
                       elapsedTimeUpdated: elapsedTimeSub.eraseToAnyPublisher(),
                       wpmUpdated: wpmSub.eraseToAnyPublisher(),
-                      summaryViewPresented: showSummaryViewSub.eraseToAnyPublisher())
+                      summaryViewPresented: showSummaryViewSub.eraseToAnyPublisher(),
+                      typingStarted: startTyping)
     }
 
     func testViewDidLoad() async throws -> String {
         try await Task.sleep(nanoseconds: 500_000_000) // 0.5초 지연
 //        return "1111"
-        return "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
+        return "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다. 어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
     }
 }

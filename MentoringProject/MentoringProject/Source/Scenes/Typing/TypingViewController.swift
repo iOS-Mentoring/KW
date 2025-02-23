@@ -13,12 +13,9 @@ class TypingViewController: BaseViewController {
     private let rootView = TypingView()
 
     private let viewModel: TypingViewModel
-    private let textViewScrollManager: TextViewScrollManager
 
     init(viewModel: TypingViewModel) {
         self.viewModel = viewModel
-        self.textViewScrollManager = TextViewScrollManager(textViews: rootView.scrollableTextViews,
-                                                           keyboardObserver: KeyboardObserver())
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,8 +33,6 @@ class TypingViewController: BaseViewController {
 
         bind()
         configurNavigationBar()
-
-        rootView.activeTextView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -94,6 +89,14 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateHighlightedText(text)
             }
             .store(in: &cancellables)
+
+        output.typingStarted
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.rootView.startProgress()
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -117,17 +120,5 @@ extension TypingViewController {
     func showSummaryViewController() {
         let vc = SummaryViewController(viewModel: SummaryViewModel())
         present(vc, animated: true)
-    }
-}
-
-extension TypingViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        textViewScrollManager.scrollToCursorPosition()
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == rootView.activeTextView {
-            textViewScrollManager.mirrorScrollPosition()
-        }
     }
 }
