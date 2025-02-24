@@ -5,8 +5,8 @@
 //  Created by PKW on 2/23/25.
 //
 
-import Combine
 import UIKit
+import Combine
 
 class HistoryCalendarView: BaseView {
     private let collectionView: UICollectionView = {
@@ -25,28 +25,22 @@ class HistoryCalendarView: BaseView {
         return collectionView
     }()
     
-    private var currentWeekStart: Date = {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "ko_KR")
-        calendar.firstWeekday = 1
-        let today = Date()
-        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
-        return calendar.date(from: components) ?? today
-    }()
+    private let viewModel: HistoryViewModel
+    private let dateSelected = PassthroughSubject<Date, Never>()
     
-    private var weekDates: [Date] {
-        let calendar = Calendar(identifier: .gregorian)
-        var dates: [Date] = []
-        for offset in 0 ..< 7 {
-            if let date = calendar.date(byAdding: .day, value: offset, to: currentWeekStart) {
-                dates.append(date)
-            }
-        }
-        return dates
+    var dateSelectedPublisher: AnyPublisher<Date, Never> {
+        return dateSelected.eraseToAnyPublisher()
+    }
+
+    init(viewModel: HistoryViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero)
     }
     
-    private let selectedDatePublisher = PassthroughSubject<Date, Never>()
-    private var selectedIndexPath: IndexPath?
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func configureLayout() {
         addSubview(collectionView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
@@ -54,7 +48,7 @@ class HistoryCalendarView: BaseView {
     
     override func configureView() {
         backgroundColor = .white
-        
+
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -74,8 +68,8 @@ extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
 
 extension HistoryCalendarView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 셀 선택했을때 컬렉션뷰 업데이트
-        selectedIndexPath = indexPath
+        let selectedDate = viewModel.getWeekDates()[indexPath.item]
+        dateSelected.send(selectedDate)
         collectionView.reloadData()
     }
 }
@@ -86,34 +80,20 @@ extension HistoryCalendarView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weekDates.count
+        return viewModel.getWeekDates().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(CalendarCell.self, for: indexPath)
-        let date = weekDates[indexPath.item]
-        let calendar = Calendar(identifier: .gregorian)
         
-        let weekdaySymbols = calendar.shortWeekdaySymbols
-        let weekdayIndex = calendar.component(.weekday, from: date) - 1
+        let date = viewModel.getWeekDates()[indexPath.item]
         
-        let dayOfWeek = weekdaySymbols[weekdayIndex]
-        let day = calendar.component(.day, from: date)
+        let shortDay = viewModel.getShortWeekday(for: date)
+        let day = viewModel.getDay(from: date)
+        let isSelected = viewModel.isSelectedDate(date)
         
-        if indexPath.item == 0 {
-            cell.setDayLabelColor()
-        }
+        cell.configurData(dayOfWeek: shortDay, day: day, isSelected: isSelected)
         
-        let isSelectedCell: Bool
-
-        if let selectedIndexPath = selectedIndexPath {
-            isSelectedCell = (selectedIndexPath == indexPath)
-        } else {
-            isSelectedCell = Calendar.current.isDate(date, inSameDayAs: Date())
-        }
-        
-        cell.configurData(dayOfWeek: dayOfWeek, day: "\(day)", isToday: isSelectedCell)
-    
         return cell
     }
 }

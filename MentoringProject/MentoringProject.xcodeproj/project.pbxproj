@@ -14,6 +14,8 @@
 		1601DAA52D6B0E5F008EE652 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DAA42D6B0E5F008EE652 /* HistoryView.swift */; };
 		1601DAA82D6B1051008EE652 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DAA72D6B1051008EE652 /* CalendarCell.swift */; };
 		1601DC702D6B3F8F008EE652 /* UILabel+attributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DC6F2D6B3F8F008EE652 /* UILabel+attributedString.swift */; };
+		1601DC722D6C353A008EE652 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DC712D6C353A008EE652 /* CalendarManager.swift */; };
+		1601DC742D6C35DF008EE652 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DC732D6C35DB008EE652 /* HistoryViewModel.swift */; };
 		163DC63C2D6396A1009CCB5D /* TypingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63B2D6396A1009CCB5D /* TypingView.swift */; };
 		163DC63E2D6398D6009CCB5D /* TypingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63D2D6398D6009CCB5D /* TypingTextView.swift */; };
 		163DC7AF2D646885009CCB5D /* BaseViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */; };
@@ -110,6 +112,8 @@
 		1601DAA42D6B0E5F008EE652 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		1601DAA72D6B1051008EE652 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		1601DC6F2D6B3F8F008EE652 /* UILabel+attributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+attributedString.swift"; sourceTree = "<group>"; };
+		1601DC712D6C353A008EE652 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
+		1601DC732D6C35DB008EE652 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		163DC63B2D6396A1009CCB5D /* TypingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingView.swift; sourceTree = "<group>"; };
 		163DC63D2D6398D6009CCB5D /* TypingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextView.swift; sourceTree = "<group>"; };
 		163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelType.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 		1601DAA12D6B0CF4008EE652 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1601DC732D6C35DB008EE652 /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				163DCACE2D6637A5009CCB5D /* KeyboardObserver.swift */,
 				163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */,
 				1601DA9E2D698E4B008EE652 /* BaseTextView.swift */,
+				1601DC712D6C353A008EE652 /* CalendarManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -664,8 +670,10 @@
 				16F504C42D54AB2800EE67F0 /* UIView+corner.swift in Sources */,
 				16F88F4D2D5487E200BF7CDE /* AppDelegate.swift in Sources */,
 				16F504A32D54AB2000EE67F0 /* Future+Async.swift in Sources */,
+				1601DC722D6C353A008EE652 /* CalendarManager.swift in Sources */,
 				16F504C02D54AB2800EE67F0 /* UIViewController+keyboard.swift in Sources */,
 				16F504A02D54AB2000EE67F0 /* Publisher+extension.swift in Sources */,
+				1601DC742D6C35DF008EE652 /* HistoryViewModel.swift in Sources */,
 				16F88FD72D548B3A00BF7CDE /* TypingViewModel.swift in Sources */,
 				16F504BE2D54AB2800EE67F0 /* UITextField+placeholder.swift in Sources */,
 				16F504BA2D54AB2800EE67F0 /* UICollectionView+register.swift in Sources */,

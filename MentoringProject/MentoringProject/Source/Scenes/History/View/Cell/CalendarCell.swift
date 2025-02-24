@@ -87,7 +87,7 @@ class CalendarCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
     }
     
-    func configurData(dayOfWeek: String, day: String, isToday: Bool) {
+    func configurData(dayOfWeek: String, day: String, isSelected: Bool) {
         dayLabel.setStyledText(text: dayOfWeek,
                                font: .pretendard(type: .pretendardRegular, size: 10),
                                letterSpacing: -0.4,
@@ -98,8 +98,8 @@ class CalendarCell: UICollectionViewCell {
                                 letterSpacing: -0.56,
                                 textAlignment: .center)
         
-        selectionBackgroundView.backgroundColor = isToday ? UIColor.gray200 : .clear
-        selectionDot.backgroundColor = isToday ? .black : .clear
+        selectionBackgroundView.backgroundColor = isSelected ? UIColor.gray200 : .clear
+        selectionDot.backgroundColor = isSelected ? .black : .clear
     }
     
     func setDayLabelColor() {
