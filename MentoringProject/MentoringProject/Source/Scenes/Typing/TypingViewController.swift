@@ -31,7 +31,7 @@ class TypingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bind()
+        bindViewModel()
         configurNavigationBar()
     }
 
@@ -40,14 +40,14 @@ class TypingViewController: BaseViewController {
 
         rootView.setTextViewFirstResponder()
     }
-
-    func bind() {
+    
+    override func bindViewModel() {
         let input = TypingViewModel.Input(
             onViewDidLoad: Just(()).eraseToAnyPublisher(),
             onTextViewTextChanged: rootView.textViewPublisher)
-
+        
         let output = viewModel.transform(from: input)
-
+        
         // 필사 텍스트 업데이트
         output.placeholderTextUpdated
             .receive(on: DispatchQueue.main)
@@ -56,7 +56,7 @@ class TypingViewController: BaseViewController {
                 self.rootView.setPlaceholderText(text)
             }
             .store(in: &cancellables)
-
+        
         // WPM 업데이트
         output.wpmUpdated
             .receive(on: DispatchQueue.main)
@@ -65,7 +65,7 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateWPMLabel(wpm)
             }
             .store(in: &cancellables)
-
+        
         output.elapsedTimeUpdated
             .receive(on: DispatchQueue.main)
             .sink { [weak self] seconds in
@@ -73,7 +73,7 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateTimeLabel(seconds)
             }
             .store(in: &cancellables)
-
+        
         output.summaryViewPresented
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -81,7 +81,7 @@ class TypingViewController: BaseViewController {
                 self.showSummaryViewController()
             }
             .store(in: &cancellables)
-
+        
         output.highlightedTextUpdated
             .receive(on: DispatchQueue.main)
             .sink { [weak self] text in
@@ -89,7 +89,7 @@ class TypingViewController: BaseViewController {
                 self.rootView.updateHighlightedText(text)
             }
             .store(in: &cancellables)
-
+        
         output.typingStarted
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
