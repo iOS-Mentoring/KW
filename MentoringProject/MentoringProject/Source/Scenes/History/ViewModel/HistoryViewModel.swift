@@ -20,16 +20,20 @@ final class HistoryViewModel: BaseViewModelType {
     }
     
     init() {
-        let startOfWeek = calendarManager.getStartOfWeek(date: Date())
+        let today = Date()
+        let startOfWeek = calendarManager.getStartOfWeek(date: today)
         weekDates = calendarManager.getWeekDates(startDate: startOfWeek)
-        selectedDateSubject.send(Date())
+        selectedDateSubject.send(today)
+        
+        updateSelectedIndexPath(for: today)
     }
     
     private var weekDates = [Date]() // 현재 날짜가 포함된 한 주 서브젝트
+    private var selectedIndexPath: IndexPath? // 선택된 날짜 인덱스패스
+    
     private let selectedDateSubject = CurrentValueSubject<Date, Never>(Date()) // 선택한 날짜 서브젝트
     
     func transform(from input: Input) -> Output {
-        
         input.dateSelected
             .sink { [weak self] selectedDate in
                 guard let self = self else { return }
@@ -40,8 +44,20 @@ final class HistoryViewModel: BaseViewModelType {
         return Output(selectedDate: selectedDateSubject.eraseToAnyPublisher())
     }
     
+    // MARK: 캘린더 뷰 컬렉션 뷰 추가 기능
+
+    func updateSelectedIndexPath(for date: Date) {
+        if let index = weekDates.firstIndex(where: { calendarManager.isSelectedDate(date1: $0, date2: date) }) {
+            selectedIndexPath = IndexPath(item: index, section: 0)
+        }
+    }
+    
+    func getSelectedIndexPath() -> IndexPath? {
+        return selectedIndexPath
+    }
     
     // MARK: 캘린더 기능
+
     func getWeekDates() -> [Date] {
         return weekDates
     }
@@ -62,5 +78,5 @@ final class HistoryViewModel: BaseViewModelType {
         return selectedDateSubject.value
     }
     
-    // MARK: 
+    // MARK:
 }

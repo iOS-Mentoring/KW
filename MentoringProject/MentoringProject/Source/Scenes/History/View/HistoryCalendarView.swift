@@ -5,8 +5,8 @@
 //  Created by PKW on 2/23/25.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 class HistoryCalendarView: BaseView {
     private let collectionView: UICollectionView = {
@@ -26,6 +26,7 @@ class HistoryCalendarView: BaseView {
     }()
     
     private let viewModel: HistoryViewModel
+    
     private let dateSelected = PassthroughSubject<Date, Never>()
     
     var dateSelectedPublisher: AnyPublisher<Date, Never> {
@@ -70,7 +71,18 @@ extension HistoryCalendarView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedDate = viewModel.getWeekDates()[indexPath.item]
         dateSelected.send(selectedDate)
-        collectionView.reloadData()
+        
+        var indexPathsToReload: [IndexPath] = []
+        
+        if let previousIndexPath = viewModel.getSelectedIndexPath() {
+            indexPathsToReload.append(previousIndexPath)
+        }
+        
+        indexPathsToReload.append(indexPath)
+        
+        viewModel.updateSelectedIndexPath(for: selectedDate)
+        
+        collectionView.reloadItems(at: indexPathsToReload)
     }
 }
 
