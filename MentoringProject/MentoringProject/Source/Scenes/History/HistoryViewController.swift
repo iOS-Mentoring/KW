@@ -15,13 +15,14 @@ class HistoryViewController: BaseViewController {
         self.rootView = HistoryView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func loadView() {
-        self.view = self.rootView
+        view = rootView
     }
 
     override func viewDidLoad() {
@@ -30,19 +31,18 @@ class HistoryViewController: BaseViewController {
         title = "하루 보관함"
         bindViewModel()
     }
-    
+
     override func bindViewModel() {
-        let input = HistoryViewModel.Input(dateSelected: rootView.dateSelectedPublisher)
-        
-        let output = viewModel.transform(from: input)
-        
-        output.selectedDate
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] selectedDate in
-                print("111", selectedDate)
-            }
-            .store(in: &cancellables)
-        
+//        let input = HistoryViewModel.Input(dateSelected: rootView.dateSelectedPublisher)
+//
+//        let output = viewModel.transform(from: input)
+//
+//        output.selectedDate
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] selectedDate in
+//                print("111", selectedDate)
+//            }
+//            .store(in: &cancellables)
+//
     }
-    
 }

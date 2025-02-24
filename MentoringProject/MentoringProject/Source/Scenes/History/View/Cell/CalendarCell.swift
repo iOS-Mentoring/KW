@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarCell: UICollectionViewCell {
+final class CalendarCell: UICollectionViewCell {
     static let reuseIdentifier = "CalendarCell"
     
     private let stackView: UIStackView = {

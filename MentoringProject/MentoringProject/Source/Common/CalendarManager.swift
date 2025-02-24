@@ -19,7 +19,7 @@ struct CalendarManager {
     
     // 일 월 화 수 목 금 토 일
     func getWeekDates(startDate: Date) -> [Date] {
-        return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startDate) }
+        return (0 ..< 7).compactMap { calendar.date(byAdding: .day, value: $0, to: startDate) }
     }
     
     // 영어로 요일 변환
