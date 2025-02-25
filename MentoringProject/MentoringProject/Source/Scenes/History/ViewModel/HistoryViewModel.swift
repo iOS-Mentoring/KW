@@ -9,19 +9,18 @@ import Foundation
 
 final class HistoryViewModel: BaseViewModelType {
     private var cancellables = Set<AnyCancellable>()
-   
+    
     private let calendarManager = CalendarManager()
     
     private var weekDates = [[Date]]() // 3주치 날짜 저장
     private var currentWeekStart: Date // 현재 날짜
     private var selectedIndexPath: IndexPath? // 선택한 셀의 인덱스 패스
     
-    private var selectedDateSub = CurrentValueSubject<Date, Never>(Date())
+    private var cellSelectedSub = CurrentValueSubject<Date, Never>(Date())
     
     init() {
         let today = Date()
         currentWeekStart = calendarManager.getStartOfWeek(date: today)
-        selectedDateSub.send(today)
         updateWeeks(for: currentWeekStart)
         
         // 현재 날짜의 인덱스 패스 저장하기
@@ -31,15 +30,24 @@ final class HistoryViewModel: BaseViewModelType {
     }
     
     struct Input {
-        let dateSelected: AnyPublisher<Date, Never> // 날짜 선택
+        let onViewDidLoad: AnyPublisher<Date, Never>
     }
     
     struct Output {
-        let selectedDate: AnyPublisher<Date, Never> // 선택된 날짜가 포함된 한 주
+        let historyDataUpdated: AnyPublisher<HistoryModel?, Never>
     }
     
     func transform(from input: Input) -> Output {
-        return Output(selectedDate: Empty().eraseToAnyPublisher())
+        let historyData = input.onViewDidLoad
+            .merge(with: cellSelectedSub.dropFirst()) // cellSelectedSub의 처음 방출 방지
+            .map { date in
+                let timeStamp = date.startOfDayTimestamp()
+                return HistoryMockData.data[timeStamp]
+            }
+            .eraseToAnyPublisher()
+        
+        return Output(
+            historyDataUpdated: historyData)
     }
     
     // MARK: 캘린더 관련
@@ -69,7 +77,7 @@ final class HistoryViewModel: BaseViewModelType {
     }
     
     func isSelectedDate(date: Date) -> Bool {
-        return calendarManager.isSelectedDate(date1: date, date2: selectedDateSub.value)
+        return calendarManager.isSelectedDate(date1: date, date2: cellSelectedSub.value)
     }
     
     func moveToPreviousWeek() {
@@ -100,7 +108,7 @@ final class HistoryViewModel: BaseViewModelType {
         
         return weekDates[weekIndex][dayIndex]
     }
-
+    
     private func getIndexPath(for date: Date) -> IndexPath? {
         for (weekIndex, week) in weekDates.enumerated() {
             if let dayIndex = week.firstIndex(where: { Calendar.current.isDate($0, inSameDayAs: date) }) {
@@ -109,16 +117,37 @@ final class HistoryViewModel: BaseViewModelType {
         }
         return nil
     }
-
-    func setSelectedDate(_ date: Date) {
-        selectedDateSub.send(date)
-    }
     
+    // MARK: 셀 터치 했을때 관련
+     
+    func selectDate(date: Date, indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        cellSelectedSub.send(date)
+    }
+
     func getSelectedIndexPath() -> IndexPath? {
         return selectedIndexPath
     }
-    
-    func setSelectedIndexPath(indexPath: IndexPath) {
-        selectedIndexPath = indexPath
+}
+
+// MARK: 테스트용 
+extension Date {
+    func startOfDayTimestamp() -> Double {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: self)
+        return startOfDay.timeIntervalSince1970 + 32400
+    }
+}
+
+extension String {
+    func toFormattedDate() -> String? {
+        guard let timestamp = Double(self) else { return nil }
+        let date = Date(timeIntervalSince1970: timestamp)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        return formatter.string(from: date)
     }
 }

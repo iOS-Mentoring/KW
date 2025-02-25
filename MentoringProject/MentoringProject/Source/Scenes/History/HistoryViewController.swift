@@ -5,6 +5,7 @@
 //  Created by PKW on 2/7/25.
 //
 
+import Combine
 import UIKit
 
 class HistoryViewController: BaseViewController {
@@ -33,16 +34,33 @@ class HistoryViewController: BaseViewController {
     }
 
     override func bindViewModel() {
-//        let input = HistoryViewModel.Input(dateSelected: rootView.dateSelectedPublisher)
-//
-//        let output = viewModel.transform(from: input)
-//
-//        output.selectedDate
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] selectedDate in
-//                print("111", selectedDate)
-//            }
-//            .store(in: &cancellables)
-//
+        let input = HistoryViewModel.Input(
+            onViewDidLoad: Just(Date()).eraseToAnyPublisher())
+
+        let output = viewModel.transform(from: input)
+
+        output.historyDataUpdated
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] data in
+                guard let self = self, let data = data else {
+                    self?.rootView.hideReferenceData()
+                    self?.rootView.updateSelectedCellDot(isData: true)
+                    return
+                }
+
+                self.rootView.showReferenceData()
+                self.rootView.updateSelectedCellDot(isData: false)
+
+                self.rootView.updatePerformanceData(
+                    wpm: "\(data.wpm)",
+                    acc: "\(data.acc)",
+                    date: "\(data.date.toFormattedDate() ?? "")")
+
+                self.rootView.updateReferenceData(
+                    text: data.text,
+                    title: data.title,
+                    author: data.author)
+            }
+            .store(in: &cancellables)
     }
 }

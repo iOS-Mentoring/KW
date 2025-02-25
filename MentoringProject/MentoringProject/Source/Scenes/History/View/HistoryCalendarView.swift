@@ -62,11 +62,10 @@ final class HistoryCalendarView: BaseView {
             let label = UILabel()
             label.textColor = weekday == "Sun" ? .red : .black
             label.setStyledText(text: weekday,
-                                 font: .pretendard(type: .pretendardRegular, size: 10),
-                                 letterSpacing: -0.4,
-                                 textAlignment: .center)
+                                font: .pretendard(type: .pretendardRegular, size: 10),
+                                lineHeight: 12,
+                                letterSpacing: -0.04)
             stackView.addArrangedSubview(label)
-           
         }
         
         addSubview(stackView, autoLayout: [.leading(20), .trailing(20), .top(20)])
@@ -81,11 +80,20 @@ final class HistoryCalendarView: BaseView {
         
         collectionView.registerCell(ofType: CalendarCell.self, withReuseIdentifier: CalendarCell.reuseIdentifier)
     }
+    
+    func updateSelectedCellDot(isHidden: Bool) {
+        DispatchQueue.main.async {
+            if let selectedIndexPath = self.viewModel.getSelectedIndexPath(),
+               let cell = self.collectionView.cellForItem(at: selectedIndexPath) as? CalendarCell
+            {
+                cell.updateSelectedDotView(isHidden: isHidden)
+            }
+        }
+    }
 }
 
 extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let availableWidth = collectionView.bounds.width - 40
         let cellWidth = availableWidth / 7
         let cellHeight = collectionView.bounds.height - 23
@@ -110,8 +118,7 @@ extension HistoryCalendarView: UICollectionViewDelegate {
         
         indexPathsToReload.append(indexPath) // 새로 선택한 인덱스 패스
         
-        viewModel.setSelectedDate(date)
-        viewModel.setSelectedIndexPath(indexPath: indexPath)
+        viewModel.selectDate(date: date, indexPath: indexPath)
     
         collectionView.reloadItems(at: indexPathsToReload)
     }
