@@ -26,12 +26,6 @@ final class CalendarCell: UICollectionViewCell {
         return view
     }()
     
-    private let dayLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        return label
-    }()
-    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -59,9 +53,6 @@ final class CalendarCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        dayLabel.text = nil
-        dayLabel.textColor = .black
-        
         dateLabel.text = nil
         
         selectionBackgroundView.backgroundColor = .clear
@@ -72,8 +63,6 @@ final class CalendarCell: UICollectionViewCell {
         selectionBackgroundView.addSubview(dateLabel, autoLayout: [.centerX(0), .centerY(0)])
         selectionBackgroundView.autoLayout([.width(30), .height(30)])
         
-        stackView.addArrangedSubview(dayLabel)
-        stackView.setCustomSpacing(11, after: dayLabel)
         stackView.addArrangedSubview(selectionBackgroundView)
         stackView.setCustomSpacing(5, after: selectionBackgroundView)
         
@@ -88,11 +77,6 @@ final class CalendarCell: UICollectionViewCell {
     }
     
     func configurData(dayOfWeek: String, day: String, isSelected: Bool) {
-        dayLabel.setStyledText(text: dayOfWeek,
-                               font: .pretendard(type: .pretendardRegular, size: 10),
-                               letterSpacing: -0.4,
-                               textAlignment: .center)
-        
         dateLabel.setStyledText(text: day,
                                 font: .pretendard(type: .pretendardBold, size: 14),
                                 letterSpacing: -0.56,
@@ -100,9 +84,5 @@ final class CalendarCell: UICollectionViewCell {
         
         selectionBackgroundView.backgroundColor = isSelected ? UIColor.gray200 : .clear
         selectionDot.backgroundColor = isSelected ? .black : .clear
-    }
-    
-    func setDayLabelColor() {
-        dayLabel.textColor = .red
     }
 }

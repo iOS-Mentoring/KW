@@ -9,6 +9,13 @@ import Combine
 import UIKit
 
 final class HistoryCalendarView: BaseView {
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -49,7 +56,21 @@ final class HistoryCalendarView: BaseView {
     }
     
     override func configureLayout() {
-        addSubview(collectionView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
+        let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        
+        for weekday in weekdays {
+            let label = UILabel()
+            label.textColor = weekday == "Sun" ? .red : .black
+            label.setStyledText(text: weekday,
+                                 font: .pretendard(type: .pretendardRegular, size: 10),
+                                 letterSpacing: -0.4,
+                                 textAlignment: .center)
+            stackView.addArrangedSubview(label)
+           
+        }
+        
+        addSubview(stackView, autoLayout: [.leading(20), .trailing(20), .top(20)])
+        addSubview(collectionView, autoLayout: [.leading(0), .trailing(0), .topNext(to: stackView, constant: 0), .bottom(0)])
     }
     
     override func configureView() {
@@ -64,15 +85,16 @@ final class HistoryCalendarView: BaseView {
 
 extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let availableWidth = collectionView.bounds.width - 40
         let cellWidth = availableWidth / 7
-        let cellHeight = collectionView.bounds.height - 32
+        let cellHeight = collectionView.bounds.height - 23
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 20, bottom: 12, right: 20)
+        return UIEdgeInsets(top: 11, left: 20, bottom: 12, right: 20)
     }
 }
 
