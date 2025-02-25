@@ -10,12 +10,20 @@ import UIKit
 extension UILabel {
     func setStyledText(text: String,
                        font: UIFont,
+                       lineHeight: CGFloat,
                        letterSpacing: CGFloat,
                        textAlignment: NSTextAlignment = .center)
     {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = max(lineHeight, font.lineHeight)
+        paragraphStyle.maximumLineHeight = max(lineHeight, font.lineHeight)
+        
+        let letterSpacing = letterSpacing * font.pointSize
+        
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
-            .kern: letterSpacing
+            .kern: letterSpacing,
+            .paragraphStyle: paragraphStyle
         ]
 
         self.attributedText = NSAttributedString(string: text, attributes: attributes)
