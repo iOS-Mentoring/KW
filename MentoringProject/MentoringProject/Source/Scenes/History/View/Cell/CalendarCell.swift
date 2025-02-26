@@ -14,8 +14,8 @@ final class CalendarCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 0
-        stackView.distribution = .fill
+        stackView.spacing = 5
+        stackView.distribution = .fillProportionally
         return stackView
     }()
     
@@ -64,7 +64,6 @@ final class CalendarCell: UICollectionViewCell {
         selectionBackgroundView.autoLayout([.width(30), .height(30)])
         
         stackView.addArrangedSubview(selectionBackgroundView)
-        stackView.setCustomSpacing(5, after: selectionBackgroundView)
         
         selectionDot.autoLayout([.width(4), .height(4)])
         stackView.addArrangedSubview(selectionDot)

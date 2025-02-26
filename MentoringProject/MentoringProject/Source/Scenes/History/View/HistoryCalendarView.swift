@@ -108,7 +108,7 @@ extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 11, left: 20, bottom: 12, right: 20)
+        return UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
     }
 }
 

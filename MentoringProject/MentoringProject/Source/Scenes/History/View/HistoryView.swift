@@ -107,7 +107,7 @@ final class HistoryView: BaseView {
         addSubview(backgroundImageView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
         
         // 캘린더 뷰
-        addSubview(calendarView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(94.5)])
+        addSubview(calendarView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(94)])
         
         // 스크롤 뷰
         baseStackView.addArrangedSubview(performanceView)
