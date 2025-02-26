@@ -33,7 +33,7 @@ final class HistoryCalendarView: BaseView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-    
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.isPagingEnabled = true
@@ -43,7 +43,18 @@ final class HistoryCalendarView: BaseView {
     }()
     
     private let viewModel: HistoryViewModel
-    private var isInitialScrollDone = false
+    
+    private var cancellables = Set<AnyCancellable>()
+    private let cellSelectionSubject = PassthroughSubject<IndexPath?, Never>() // 셀 선택 서브젝트
+    private let scrollPageSubject = PassthroughSubject<Int, Never>() // 스크롤 서브젝트
+   
+    var cellSelection: AnyPublisher<IndexPath?, Never> {
+        return cellSelectionSubject.eraseToAnyPublisher()
+    }
+    
+    var scrollPage: AnyPublisher<Int, Never> {
+        scrollPageSubject.eraseToAnyPublisher()
+    }
     
     init(viewModel: HistoryViewModel) {
         self.viewModel = viewModel
@@ -55,22 +66,10 @@ final class HistoryCalendarView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // 가운데 인덱스 위치로 이동하도록
-        if !isInitialScrollDone {
-            DispatchQueue.main.async {
-                self.collectionView.contentOffset.x = self.collectionView.bounds.width
-                self.isInitialScrollDone = true
-            }
-        }
-    }
-    
     override func configureLayout() {
         for weekday in Weekdays.allCases {
             let label = UILabel()
-            label.textColor = weekday.color //weekday.rawValue == "Sun" ? .red : .black
+            label.textColor = weekday.color // weekday.rawValue == "Sun" ? .red : .black
             label.setStyledText(text: weekday.rawValue,
                                 font: .pretendard(type: .pretendardRegular, size: 10),
                                 lineHeight: 12,
@@ -91,14 +90,11 @@ final class HistoryCalendarView: BaseView {
         collectionView.registerCell(ofType: CalendarCell.self, withReuseIdentifier: CalendarCell.reuseIdentifier)
     }
     
-    func updateSelectedCellDot(isHidden: Bool) {
-        DispatchQueue.main.async {
-            if let selectedIndexPath = self.viewModel.getSelectedIndexPath(),
-               let cell = self.collectionView.cellForItem(at: selectedIndexPath) as? CalendarCell
-            {
-                cell.updateSelectedDotView(isHidden: isHidden)
-            }
-        }
+    // 컬렉션뷰 리로드 후 가운데 정렬
+    func reloadCollectionView() {
+        collectionView.reloadData()
+        let middleOffset = collectionView.bounds.width // 섹션 1로 이동
+        collectionView.contentOffset = CGPoint(x: middleOffset, y: 0)
     }
 }
 
@@ -118,22 +114,9 @@ extension HistoryCalendarView: UICollectionViewDelegateFlowLayout {
 
 extension HistoryCalendarView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let date = viewModel.getDate(for: indexPath) else { return } // 선택한 날짜
-        
-        var indexPathsToReload: [IndexPath] = [] // 리로드 할 셀 인덱스 패스
-        
-        if let previousIndexPath = viewModel.getSelectedIndexPath() { // 이전에 선택했던 셀 인덱스패스
-            indexPathsToReload.append(previousIndexPath)
-        }
-        
-        indexPathsToReload.append(indexPath) // 새로 선택한 인덱스 패스
-        
-        viewModel.selectDate(date: date, indexPath: indexPath)
-    
-        collectionView.reloadItems(at: indexPathsToReload)
+        cellSelectionSubject.send(indexPath) // 이벤트 방출만!
     }
     
-    // 스크롤이 끝났을때 동작
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let pageWidth = scrollView.bounds.width // 페이징할 섹션의 넓이
         let targetPage = targetContentOffset.pointee.x / pageWidth // 스크롤할 페이지 0, 1, 2
@@ -147,17 +130,8 @@ extension HistoryCalendarView: UICollectionViewDelegate {
     // 스크롤이 완전히 멈췄을때 호출
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.bounds.width
-        let currentPage = Int(scrollView.contentOffset.x / pageWidth) // 현재 페이지 인덱스
-        
-        if currentPage == 0 { // 충분히 왼쪽으로 스크롤한 경우 이전 주로 이동
-            viewModel.moveToPreviousWeek() // -1주 데이터 가져오기
-            collectionView.reloadData()
-            collectionView.contentOffset.x = pageWidth // 중앙으로 리셋
-        } else if currentPage == 2 { // 충분히 오른쪽으로 스크롤한 경우 다음 주로 이동
-            viewModel.moveToNextWeek() // +1주 데이터 가져오기
-            collectionView.reloadData()
-            collectionView.contentOffset.x = pageWidth // 중앙으로 리셋
-        }
+        let currentPage = Int(scrollView.contentOffset.x / pageWidth)
+        scrollPageSubject.send(currentPage) // 페이지 변경 이벤트 방출
     }
 }
 
@@ -165,7 +139,7 @@ extension HistoryCalendarView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.getWeeks().count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 7
     }
@@ -173,16 +147,22 @@ extension HistoryCalendarView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(CalendarCell.self, for: indexPath)
         
-        guard let date = viewModel.getDate(for: indexPath) else { return cell }
+        guard let date = viewModel.getDate(for: indexPath) else { return cell } // 셀에 표시할 날짜
         
-        let shortDay = viewModel.getShortWeekday(for: date)
+        let dayStr = viewModel.convertDayToString(date: date) // 2025-02-20 15:00:00 +0000 -> "20"으로 변환
         
-        let day = viewModel.getDay(from: date)
-       
         let isSelected = viewModel.isSelectedDate(date: date)
-        print(isSelected, indexPath)
         
-        cell.configurData(dayOfWeek: shortDay, day: day, isSelected: isSelected)
+        var isDot = false
+        
+        if isSelected {
+            let hasData = viewModel.hasData(date: date)
+            isDot = hasData
+        } else {
+            isDot = false
+        }
+        
+        cell.configurData(day: dayStr, isSelected: isSelected, isDot: isDot)
         
         return cell
     }

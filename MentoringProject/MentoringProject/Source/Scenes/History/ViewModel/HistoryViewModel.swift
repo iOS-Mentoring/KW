@@ -8,58 +8,82 @@ import Combine
 import Foundation
 
 final class HistoryViewModel: BaseViewModelType {
-    private var cancellables = Set<AnyCancellable>()
-    
     private let calendarManager = CalendarManager()
     
-    private var weekDates = [[Date]]() // 3주치 날짜 저장
-    private var currentWeekStart: Date // 현재 날짜
-    private var selectedIndexPath: IndexPath? // 선택한 셀의 인덱스 패스
+    private var cancellables = Set<AnyCancellable>()
+    private let selectedDateSubject = CurrentValueSubject<Date?, Never>(nil) // 선택한 날짜 서브젝트
+    private let scrollPageSubject = PassthroughSubject<Void, Never>() // 컬렉션뷰 스크롤 서브젝트
     
-    private var cellSelectedSub = CurrentValueSubject<Date, Never>(Date())
+    private var weekDates = [[Date]]() // -1주, 현재주, +1주 배열
+    private var currentWeekStart: Date // 이번주 시작 날짜 (일요일이 몇일인지)
     
     init() {
         let today = Date()
-        currentWeekStart = calendarManager.getStartOfWeek(date: today)
-        updateWeeks(for: currentWeekStart)
-        
-        // 현재 날짜의 인덱스 패스 저장하기
-        if let todayIndexPath = getIndexPath(for: today) {
-            selectedIndexPath = todayIndexPath
-        }
+        currentWeekStart = calendarManager.getStartOfWeek(date: today) // 이번주 시작 날짜 가져오기
+        updateWeeks(for: currentWeekStart) // -1,현재,+1 날짜 가져오기
+        selectedDateSubject.send(today)
     }
     
     struct Input {
-        let viewDidLoad: AnyPublisher<Date, Never>
-        let saveButtonTap: AnyPublisher<Void, Never>
-        let shareButtonTap: AnyPublisher<Void, Never>
+        let viewDidLoad: AnyPublisher<Void, Never>
+        let cellTapped: AnyPublisher<IndexPath?, Never>
+        let scrollPageChanged: AnyPublisher<Int, Never>
     }
     
     struct Output {
         let historyDataUpdated: AnyPublisher<HistoryModel?, Never>
-        let saveButtonAction: AnyPublisher<Void, Never>
-        let shareButtonAction: AnyPublisher<Void, Never>
+        let weeksUpdated: AnyPublisher<Void, Never>
     }
     
     func transform(from input: Input) -> Output {
-        let historyData = input.viewDidLoad
-            .merge(with: cellSelectedSub.dropFirst()) // cellSelectedSub의 처음 방출 방지
-            .map { date in
-                let timeStamp = date.startOfDayTimestamp()
-                return HistoryMockData.data[timeStamp]
+        let initialData = input.viewDidLoad
+            .map { [weak self] _ -> HistoryModel? in
+                guard let self = self,
+                      let date = self.selectedDateSubject.value else { return nil }
+                
+                let timeInterval = date.convertDateToTimeInterval()
+                let data = HistoryMockData.data[timeInterval]
+                
+                return data
             }
             .eraseToAnyPublisher()
         
-        let saveAction = input.saveButtonTap.eraseToAnyPublisher()
-        let shareAction = input.shareButtonTap.eraseToAnyPublisher()
+        let cellTappedData = input.cellTapped
+            .map { [weak self] indexPath -> HistoryModel? in
+                guard let self = self, let indexPath = indexPath else { return nil }
+                
+                let date = getDate(for: indexPath) ?? Date()
+                let timeInterval = date.convertDateToTimeInterval()
+                let data = HistoryMockData.data[timeInterval]
+                
+                self.selectedDateSubject.send(date)
+                return data
+            }
+            .eraseToAnyPublisher()
         
-        return Output(historyDataUpdated: historyData,
-                      saveButtonAction: saveAction,
-                      shareButtonAction: shareAction)
+        let historyDataUpdated = initialData.merge(with: cellTappedData).eraseToAnyPublisher()
+        
+        // 스크롤했을때 페이지 방출
+        input.scrollPageChanged
+            .sink { [weak self] page in
+                guard let self = self else { return }
+                
+                if page == 0 {
+                    self.moveToPreviousWeek()
+                } else if page == 2 {
+                    self.moveToNextWeek()
+                }
+                
+                scrollPageSubject.send()
+            }
+            .store(in: &cancellables)
+        
+        return Output(historyDataUpdated: historyDataUpdated,
+                      weeksUpdated: scrollPageSubject.eraseToAnyPublisher())
     }
     
-    // MARK: 캘린더 관련
-    
+    // MARK: 캘린더 날짜 계산 관련
+
     private func updateWeeks(for currentWeek: Date) {
         guard let previousWeekStart = calendarManager.getPreviousWeek(from: currentWeek), // -1주, +1주 날짜 가져오기
               let nextWeekStart = calendarManager.getNextWeek(from: currentWeek) else { return }
@@ -69,40 +93,31 @@ final class HistoryViewModel: BaseViewModelType {
         let nextWeek = calendarManager.getWeekDates(startDate: calendarManager.getStartOfWeek(date: nextWeekStart)) // +1주
         
         weekDates = [previousWeek, currentWeekDates, nextWeek] // 배열에 -1주, 현재 주, +1주 데이터 저장
-        currentWeekStart = currentWeek // 현재 날짜가 포함된 주
+        currentWeekStart = currentWeek // 일주일 시작 날짜 업데이트
     }
     
-    func getWeeks() -> [[Date]] {
-        return weekDates
-    }
-    
-    func getShortWeekday(for date: Date) -> String {
-        return calendarManager.getShortWeekday(from: date)
-    }
-    
-    func getDay(from date: Date) -> String {
-        return "\(calendarManager.getDay(from: date))"
-    }
-    
-    func isSelectedDate(date: Date) -> Bool {
-        return calendarManager.isSelectedDate(date1: date, date2: cellSelectedSub.value)
-    }
-    
-    func moveToPreviousWeek() {
+    // -1주로 이동
+    private func moveToPreviousWeek() {
         if let newCurrent = calendarManager.getPreviousWeek(from: currentWeekStart) {
             updateWeeks(for: newCurrent)
         }
     }
     
-    func moveToNextWeek() {
+    // +1주로 이동
+    private func moveToNextWeek() {
         if let newCurrent = calendarManager.getNextWeek(from: currentWeekStart) {
             updateWeeks(for: newCurrent)
         }
     }
     
-    // MARK: 날짜 변경 관련
+    // MARK: 캘린더 날짜 설정 관련
     
-    // 선택한 날짜 가져오기
+    // 날짜가 저장된 배열 가져오기
+    func getWeeks() -> [[Date]] {
+        return weekDates
+    }
+    
+    // 셀에 표시할 날짜 가져오기
     func getDate(for indexPath: IndexPath) -> Date? {
         let weekIndex = indexPath.section // 섹션 0,1,2
         let dayIndex = indexPath.item % 7 // 날짜 인덱스 위치 0~6 [일, 월, 화, 수, 목, 금, 토]
@@ -117,31 +132,24 @@ final class HistoryViewModel: BaseViewModelType {
         return weekDates[weekIndex][dayIndex]
     }
     
-    private func getIndexPath(for date: Date) -> IndexPath? {
-        for (weekIndex, week) in weekDates.enumerated() {
-            if let dayIndex = week.firstIndex(where: { Calendar.current.isDate($0, inSameDayAs: date) }) {
-                return IndexPath(item: dayIndex, section: weekIndex)
-            }
-        }
-        return nil
+    // 날짜 문자열로 변환
+    func convertDayToString(date: Date) -> String {
+        return "\(calendarManager.convertDateToDay(from: date))"
     }
     
-    // MARK: 셀 터치 했을때 관련
-     
-    func selectDate(date: Date, indexPath: IndexPath) {
-        selectedIndexPath = indexPath
-        cellSelectedSub.send(date)
+    func isSelectedDate(date: Date) -> Bool {
+        guard let currentDate = selectedDateSubject.value else { return false }
+        return calendarManager.isSelectedDate(date1: currentDate, date2: date)
     }
-
-    func getSelectedIndexPath() -> IndexPath? {
-        return selectedIndexPath
+    
+    func hasData(date: Date) -> Bool {
+        let timeInterval = date.convertDateToTimeInterval()
+        return HistoryMockData.data[timeInterval] != nil
     }
 }
 
-// MARK: 테스트용
-
 extension Date {
-    func startOfDayTimestamp() -> Double {
+    func convertDateToTimeInterval() -> Double {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: self)
         return startOfDay.timeIntervalSince1970 + 32400

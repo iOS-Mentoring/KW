@@ -76,7 +76,7 @@ final class CalendarCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
     }
     
-    func configurData(dayOfWeek: String, day: String, isSelected: Bool) {
+    func configurData(day: String, isSelected: Bool, isDot: Bool) {
         dateLabel.setStyledText(text: day,
                                 font: .pretendard(type: .pretendardBold, size: 14),
                                 lineHeight: 12,
@@ -84,9 +84,6 @@ final class CalendarCell: UICollectionViewCell {
                                 textAlignment: .center)
         
         selectionBackgroundView.backgroundColor = isSelected ? UIColor.gray200 : .clear
-    }
-    
-    func updateSelectedDotView(isHidden: Bool) {
-        selectionDot.backgroundColor = isHidden ? .clear : .black
+        selectionDot.backgroundColor = isDot ? .black : .clear
     }
 }

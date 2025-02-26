@@ -30,7 +30,7 @@ struct CalendarManager {
     }
     
     // 날짜
-    func getDay(from date: Date) -> Int {
+    func convertDateToDay(from date: Date) -> Int {
         return calendar.component(.day, from: date)
     }
     
