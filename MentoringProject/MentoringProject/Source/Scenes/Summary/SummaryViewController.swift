@@ -48,28 +48,14 @@ final class SummaryViewController: UIViewController {
         downloadImageButton.addTarget(self, action: #selector(downloadImageButtonTapped), for: .touchUpInside)
     }
     
-    //    override func viewDidLayoutSubviews() {
-    //        super.viewDidLayoutSubviews()
-    //        updateScrollEnabledState()
-    //    }
-    
-    private func updateScrollEnabledState() {
-        //        let contentHeight = rootView.rootScrollView.contentSize.height
-        //        let scrollViewHeight = rootView.rootScrollView.bounds.height
-        //        rootView.rootScrollView.isScrollEnabled = contentHeight > scrollViewHeight
-    }
-    
     @objc func closeButtonTapped() {
         self.dismiss(animated: true)
     }
     
     @objc func downloadImageButtonTapped() {
-        guard let capturedImage = view.captureImage() else {
-            print("캡처 실패")
-            return
-        }
+        guard let capturedImage = UIApplication.shared.captureEntireWindow() else { return }
         
         let activityViewController = UIActivityViewController(activityItems: [capturedImage], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true)
     }
 }

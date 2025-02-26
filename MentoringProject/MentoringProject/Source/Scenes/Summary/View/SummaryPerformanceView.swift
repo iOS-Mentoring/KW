@@ -9,12 +9,6 @@ import UIKit
 
 final class SummaryPerformanceView: BaseView {
     
-    private let basePerformanceView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-    
     private let basePerformanceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -24,33 +18,37 @@ final class SummaryPerformanceView: BaseView {
         return stackView
     }()
     
-    private lazy var wpmView: UIView = createPerformanceView(title: "WPM")
-    private lazy var accView: UIView = createPerformanceView(title: "ACC")
-    private lazy var dateView: UIView = createPerformanceView(title: "Date")
-
+    private let wpmLabel = UILabel()
+    private let accLabel = UILabel()
+    private let dateLabel = UILabel()
+    
+    private lazy var wpmView: UIView = createPerformanceView(title: "WPM", valueLabel: wpmLabel)
+    private lazy var accView: UIView = createPerformanceView(title: "ACC", valueLabel: accLabel)
+    private lazy var dateView: UIView = createPerformanceView(title: "Date", valueLabel: dateLabel)
+    
     override func configureLayout() {
+
+        [createBorderView(), createBorderView()].enumerated().forEach { index, borderView in
+            addSubview(borderView, autoLayout: [
+                .leading(20), .trailing(20),
+                index == 0 ? .top(0) : .bottom(0), .height(1)
+            ])
+        }
+        
+        addSubview(basePerformanceStackView, autoLayout: [.leading(20), .trailing(20), .top(0), .bottom(0), .height(88)])
+        
         let separatorView1 = createSeparatorView()
         let separatorView2 = createSeparatorView()
         
-        let borderView1 = createBorderView()
-        let borderView2 = createBorderView()
-        
-        addSubview(basePerformanceView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0), .height(88)])
-        basePerformanceView.addSubview(basePerformanceStackView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
-        
-        basePerformanceView.addSubview(borderView1, autoLayout: [.leading(20), .trailing(20), .top(0), .height(1)])
-        basePerformanceStackView.addArrangedSubview(wpmView)
-        basePerformanceStackView.addArrangedSubview(separatorView1)
-        basePerformanceStackView.addArrangedSubview(accView)
-        basePerformanceStackView.addArrangedSubview(separatorView2)
-        basePerformanceStackView.addArrangedSubview(dateView)
-        basePerformanceView.addSubview(borderView2, autoLayout: [.leading(20), .trailing(20), .bottom(0), .height(1)])
+        [wpmView, separatorView1, accView, separatorView2, dateView].forEach {
+            basePerformanceStackView.addArrangedSubview($0)
+        }
         
         wpmView.autoLayout([.widthEqual(to: accView, constant: 0)])
         accView.autoLayout([.widthEqual(to: dateView, constant: 0)])
     }
     
-    private func createPerformanceView(title: String) -> UIView {
+    private func createPerformanceView(title: String, valueLabel: UILabel) -> UIView {
         let view = UIView()
         
         let stackView = UIStackView()
@@ -59,20 +57,14 @@ final class SummaryPerformanceView: BaseView {
         stackView.alignment = .center
         
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.pretendard(type: .pretendardMedium, size: 11)
         titleLabel.textColor = .black
         titleLabel.attributedText = NSAttributedString(
             string: title,
-            attributes: [.kern: -0.025 * 11]
+            attributes: [
+                .font: UIFont.pretendard(type: .pretendardMedium, size: 11),
+                .kern: -0.025 * 11]
         )
-        
-        let valueLabel = UILabel()
-        valueLabel.font = UIFont.pretendard(type: .pretendardBold, size: 20)
-        valueLabel.attributedText = NSAttributedString(
-            string: " ",
-            attributes: [.kern: -0.025 * 20]
-        )
-         
+    
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(valueLabel)
         
@@ -92,5 +84,44 @@ final class SummaryPerformanceView: BaseView {
         let view = UIView()
         view.backgroundColor = .black
         return view
+    }
+    
+    func updatePerformanceData(wpm: String, acc: String, date: String) {
+        setValueText(label: wpmLabel, text: wpm)
+        setACCText(label: accLabel, text: acc)
+        setValueText(label: dateLabel, text: date)
+    }
+    
+    private func setValueText(label: UILabel, text: String) {
+        label.attributedText = NSAttributedString(
+            string: text,
+            attributes: [
+                .font: UIFont.pretendard(type: .pretendardBold, size: 20),
+                .kern: -0.025 * label.font.pointSize
+            ]
+        )
+    }
+    
+    private func setACCText(label: UILabel, text: String) {
+        let formattedText = "\(text)%"
+        let characters = Array(formattedText)
+        
+        let attributedString = NSMutableAttributedString()
+        
+        for (_, char) in characters.enumerated() {
+            let isPercent = char == "%"
+            let fontSize: CGFloat = isPercent ? 14 : 20
+            let kernValue: CGFloat = -0.025 * fontSize
+            
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.pretendard(type: .pretendardBold, size: fontSize),
+                .kern: kernValue
+            ]
+            
+            let attributedChar = NSAttributedString(string: String(char), attributes: attributes)
+            attributedString.append(attributedChar)
+        }
+        
+        label.attributedText = attributedString
     }
 }

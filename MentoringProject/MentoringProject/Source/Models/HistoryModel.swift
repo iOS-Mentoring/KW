@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct TypingSpeedModel {
-    let characterCount: Int
+struct HistoryModel {
+    let date: String
     let wpm: Int
+    let acc: Int
+    let text: String
+    let title: String
+    let author: String
 }
