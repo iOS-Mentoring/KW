@@ -30,15 +30,19 @@ final class HistoryViewModel: BaseViewModelType {
     }
     
     struct Input {
-        let onViewDidLoad: AnyPublisher<Date, Never>
+        let viewDidLoad: AnyPublisher<Date, Never>
+        let saveButtonTap: AnyPublisher<Void, Never>
+        let shareButtonTap: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let historyDataUpdated: AnyPublisher<HistoryModel?, Never>
+        let saveButtonAction: AnyPublisher<Void, Never>
+        let shareButtonAction: AnyPublisher<Void, Never>
     }
     
     func transform(from input: Input) -> Output {
-        let historyData = input.onViewDidLoad
+        let historyData = input.viewDidLoad
             .merge(with: cellSelectedSub.dropFirst()) // cellSelectedSub의 처음 방출 방지
             .map { date in
                 let timeStamp = date.startOfDayTimestamp()
@@ -46,8 +50,12 @@ final class HistoryViewModel: BaseViewModelType {
             }
             .eraseToAnyPublisher()
         
-        return Output(
-            historyDataUpdated: historyData)
+        let saveAction = input.saveButtonTap.eraseToAnyPublisher()
+        let shareAction = input.shareButtonTap.eraseToAnyPublisher()
+        
+        return Output(historyDataUpdated: historyData,
+                      saveButtonAction: saveAction,
+                      shareButtonAction: shareAction)
     }
     
     // MARK: 캘린더 관련
@@ -130,7 +138,8 @@ final class HistoryViewModel: BaseViewModelType {
     }
 }
 
-// MARK: 테스트용 
+// MARK: 테스트용
+
 extension Date {
     func startOfDayTimestamp() -> Double {
         let calendar = Calendar.current

@@ -17,12 +17,13 @@
 		1601DC722D6C353A008EE652 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DC712D6C353A008EE652 /* CalendarManager.swift */; };
 		1601DC742D6C35DF008EE652 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DC732D6C35DB008EE652 /* HistoryViewModel.swift */; };
 		1601DC782D6CC43C008EE652 /* HistoryMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DC772D6CC438008EE652 /* HistoryMockData.swift */; };
+		1601DE8A2D6EE90F008EE652 /* SaveImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601DE892D6EE90F008EE652 /* SaveImageManager.swift */; };
 		163DC63C2D6396A1009CCB5D /* TypingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63B2D6396A1009CCB5D /* TypingView.swift */; };
 		163DC63E2D6398D6009CCB5D /* TypingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC63D2D6398D6009CCB5D /* TypingTextView.swift */; };
 		163DC7AF2D646885009CCB5D /* BaseViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */; };
 		163DC91D2D647F28009CCB5D /* UITextView+combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC91C2D647F1A009CCB5D /* UITextView+combine.swift */; };
 		163DC9AD2D65E807009CCB5D /* SummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC9AC2D65E807009CCB5D /* SummaryViewModel.swift */; };
-		163DC9AF2D65E8B2009CCB5D /* UIView+capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC9AE2D65E8A8009CCB5D /* UIView+capture.swift */; };
+		163DC9AF2D65E8B2009CCB5D /* UIApplication+capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DC9AE2D65E8A8009CCB5D /* UIApplication+capture.swift */; };
 		163DCACF2D6637A5009CCB5D /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163DCACE2D6637A5009CCB5D /* KeyboardObserver.swift */; };
 		164E03282D563A0E0029C7AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E03272D563A0E0029C7AD /* NavigationBarView.swift */; };
 		164E032E2D563AA40029C7AD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164E032D2D563AA40029C7AD /* HistoryViewController.swift */; };
@@ -116,12 +117,13 @@
 		1601DC712D6C353A008EE652 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		1601DC732D6C35DB008EE652 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		1601DC772D6CC438008EE652 /* HistoryMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMockData.swift; sourceTree = "<group>"; };
+		1601DE892D6EE90F008EE652 /* SaveImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveImageManager.swift; sourceTree = "<group>"; };
 		163DC63B2D6396A1009CCB5D /* TypingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingView.swift; sourceTree = "<group>"; };
 		163DC63D2D6398D6009CCB5D /* TypingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextView.swift; sourceTree = "<group>"; };
 		163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelType.swift; sourceTree = "<group>"; };
 		163DC91C2D647F1A009CCB5D /* UITextView+combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+combine.swift"; sourceTree = "<group>"; };
 		163DC9AC2D65E807009CCB5D /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
-		163DC9AE2D65E8A8009CCB5D /* UIView+capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+capture.swift"; sourceTree = "<group>"; };
+		163DC9AE2D65E8A8009CCB5D /* UIApplication+capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+capture.swift"; sourceTree = "<group>"; };
 		163DCACE2D6637A5009CCB5D /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		164E03272D563A0E0029C7AD /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		164E032D2D563AA40029C7AD /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				163DC7AE2D646885009CCB5D /* BaseViewModelType.swift */,
 				1601DA9E2D698E4B008EE652 /* BaseTextView.swift */,
 				1601DC712D6C353A008EE652 /* CalendarManager.swift */,
+				1601DE892D6EE90F008EE652 /* SaveImageManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -281,8 +284,8 @@
 		16F504A62D54AB2800EE67F0 /* UIExtension */ = {
 			isa = PBXGroup;
 			children = (
-				163DC9AE2D65E8A8009CCB5D /* UIView+capture.swift */,
 				16F504B42D54AB2800EE67F0 /* Keyboard+combine.swift */,
+				163DC9AE2D65E8A8009CCB5D /* UIApplication+capture.swift */,
 				16F504A72D54AB2800EE67F0 /* UICollectionView+register.swift */,
 				16F504A92D54AB2800EE67F0 /* UIColor+hex.swift */,
 				16F504AE2D54AB2800EE67F0 /* UIColor+named.swift */,
@@ -699,6 +702,7 @@
 				163DC91D2D647F28009CCB5D /* UITextView+combine.swift in Sources */,
 				16F504C52D54AB2800EE67F0 /* UILabel+estimatedSize.swift in Sources */,
 				1601DAA52D6B0E5F008EE652 /* HistoryView.swift in Sources */,
+				1601DE8A2D6EE90F008EE652 /* SaveImageManager.swift in Sources */,
 				16F504C82D54AB2800EE67F0 /* UIImageView+animation.swift in Sources */,
 				16F504A12D54AB2000EE67F0 /* Collection+Index.swift in Sources */,
 				16F504A22D54AB2000EE67F0 /* Date+Formatted.swift in Sources */,
@@ -711,7 +715,7 @@
 				16F504C22D54AB2800EE67F0 /* UITextView+estimatedSize.swift in Sources */,
 				1601DA9F2D698E4B008EE652 /* BaseTextView.swift in Sources */,
 				163DC9AD2D65E807009CCB5D /* SummaryViewModel.swift in Sources */,
-				163DC9AF2D65E8B2009CCB5D /* UIView+capture.swift in Sources */,
+				163DC9AF2D65E8B2009CCB5D /* UIApplication+capture.swift in Sources */,
 				16F504A52D54AB2000EE67F0 /* Date+KoreanStyleFormater.swift in Sources */,
 				16F601372D63538E00A66456 /* SummaryPerformanceView.swift in Sources */,
 				16F504C92D54AB2800EE67F0 /* UIView+shadow.swift in Sources */,
@@ -904,6 +908,7 @@
 				DEVELOPMENT_TEAM = U5MDQP9G89;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MentoringProject/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "앨범에 저정하려면 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -936,6 +941,7 @@
 				DEVELOPMENT_TEAM = U5MDQP9G89;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MentoringProject/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "앨범에 저정하려면 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

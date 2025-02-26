@@ -8,6 +8,18 @@
 import Combine
 import UIKit
 
+enum Weekdays: String, CaseIterable {
+    case sun = "Sun"
+    case mon = "Mon"
+    case tue = "Tue"
+    case wed = "Wed"
+    case thu = "Thu"
+    case fri = "Fri"
+    case sat = "Sat"
+    
+    var color: UIColor { self == .sun ? .red : .black }
+}
+
 final class HistoryCalendarView: BaseView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -56,12 +68,10 @@ final class HistoryCalendarView: BaseView {
     }
     
     override func configureLayout() {
-        let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        
-        for weekday in weekdays {
+        for weekday in Weekdays.allCases {
             let label = UILabel()
-            label.textColor = weekday == "Sun" ? .red : .black
-            label.setStyledText(text: weekday,
+            label.textColor = weekday.color //weekday.rawValue == "Sun" ? .red : .black
+            label.setStyledText(text: weekday.rawValue,
                                 font: .pretendard(type: .pretendardRegular, size: 10),
                                 lineHeight: 12,
                                 letterSpacing: -0.04)
@@ -166,9 +176,11 @@ extension HistoryCalendarView: UICollectionViewDataSource {
         guard let date = viewModel.getDate(for: indexPath) else { return cell }
         
         let shortDay = viewModel.getShortWeekday(for: date)
+        
         let day = viewModel.getDay(from: date)
        
         let isSelected = viewModel.isSelectedDate(date: date)
+        print(isSelected, indexPath)
         
         cell.configurData(dayOfWeek: shortDay, day: day, isSelected: isSelected)
         

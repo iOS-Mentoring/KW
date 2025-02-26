@@ -17,6 +17,13 @@ final class HistoryView: BaseView {
         return imageView
     }()
     
+    private let haruImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = .illustHaruWhole
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     private let baseScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
@@ -37,10 +44,42 @@ final class HistoryView: BaseView {
         return view
     }()
     
+    private let saveImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.iconInverseDownload, for: .normal)
+        button.setImage(.iconInverseDownload, for: .highlighted)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = .gray300
+        button.layer.cornerRadius = 18
+        return button
+    }()
+    
+    private let shareImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.iconInverseShare, for: .normal)
+        button.setImage(.iconInverseShare, for: .highlighted)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = .gray300
+        button.layer.cornerRadius = 18
+        return button
+    }()
+    
     private let viewModel: HistoryViewModel
     private let calendarView: HistoryCalendarView
     private let performanceView = SummaryPerformanceView()
     private let referenceView = SummaryReferenceView()
+   
+    var saveButtonTapPublisher: AnyPublisher<Void, Never> {
+        return saveImageButton.controlPublisher(for: .touchUpInside)
+            .map { _ in () }
+            .eraseToAnyPublisher()
+    }
+    
+    var shareButtonTapPublisher: AnyPublisher<Void, Never> {
+        return shareImageButton.controlPublisher(for: .touchUpInside)
+            .map { _ in () }
+            .eraseToAnyPublisher()
+    }
     
     init(viewModel: HistoryViewModel) {
         self.viewModel = viewModel
@@ -54,18 +93,31 @@ final class HistoryView: BaseView {
     }
     
     override func configureLayout() {
+        // 배경 이미지
         addSubview(backgroundImageView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0)])
-        addSubview(bottomView, autoLayout: [.leading(0), .trailing(0), .bottom(0), .height(80)])
         
+        // 캘린더 뷰
         addSubview(calendarView, autoLayout: [.leading(0), .trailing(0), .topSafeArea(0), .height(94.5)])
         
+        // 스크롤 뷰
         baseStackView.addArrangedSubview(performanceView)
         baseStackView.addArrangedSubview(referenceView)
         
-        addSubview(baseScrollView, autoLayout: [.leading(0), .trailing(0), .topNext(to: calendarView, constant: 0), .bottomEqual(to: bottomView, constant: 0)])
-        baseScrollView.addSubview(baseStackView, autoLayout: [.leading(0), .trailing(0), .top(0), .bottom(0), .widthEqual(to: baseScrollView, constant: 0)])
+        addSubview(baseScrollView, autoLayout: [
+            .leading(0), .trailing(0), .topNext(to: calendarView, constant: 0)])
+        baseScrollView.addSubview(baseStackView, autoLayout: [
+            .leading(0), .trailing(0), .top(0), .bottom(0), .widthEqual(to: baseScrollView, constant: 0)])
+        
+        // 바텀 뷰
+        addSubview(bottomView, autoLayout: [
+            .leading(0), .trailing(0), .topNext(to: baseScrollView, constant: 0), .bottom(0), .height(80)])
+        bottomView.addSubview(saveImageButton, autoLayout: [.leading(20), .centerY(0), .width(36), .height(36)])
+        bottomView.addSubview(shareImageButton, autoLayout: [.leadingNext(to: saveImageButton, constant: 12), .centerY(0), .width(36), .height(36)])
+        
+        // 강아지 이미지 뷰
+        addSubview(haruImageView, autoLayout: [.bottom(40),.trailing(0), .width(110), .height(140)])
     }
-
+    
     override func configureView() {}
     
     func updatePerformanceData(wpm: String, acc: String, date: String) {
