@@ -6,6 +6,7 @@
 //
 import Combine
 import Foundation
+import UIKit
 
 final class HistoryViewModel: BaseViewModelType {
     private let calendarManager = CalendarManager()
@@ -35,6 +36,8 @@ final class HistoryViewModel: BaseViewModelType {
     struct Output {
         let historyDataUpdated: AnyPublisher<HistoryModel?, Never>
         let weeksUpdated: AnyPublisher<Void, Never>
+        let saveImageTriggered: AnyPublisher<UIImage?, Never>
+        let shareImageTriggered: AnyPublisher<UIImage?, Never>
     }
     
     func transform(from input: Input) -> Output {
@@ -79,9 +82,19 @@ final class HistoryViewModel: BaseViewModelType {
                 scrollPageSubject.send()
             }
             .store(in: &cancellables)
+    
+        let saveImage = input.saveButtonTapped
+            .map { UIApplication.shared.captureEntireWindow() }
+            .eraseToAnyPublisher()
+        
+        let shareImage = input.shareButtonTapped
+            .map { UIApplication.shared.captureEntireWindow() }
+            .eraseToAnyPublisher()
         
         return Output(historyDataUpdated: historyDataUpdated,
-                      weeksUpdated: scrollPageSubject.eraseToAnyPublisher())
+                      weeksUpdated: scrollPageSubject.eraseToAnyPublisher(),
+                      saveImageTriggered: saveImage,
+                      shareImageTriggered: shareImage)
     }
     
     // MARK: 캘린더 날짜 계산 관련

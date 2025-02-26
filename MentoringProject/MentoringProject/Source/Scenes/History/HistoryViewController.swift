@@ -74,5 +74,48 @@ final class HistoryViewController: BaseViewController {
                 self.rootView.reloadCollectionView()
             }
             .store(in: &cancellables)
+        
+        output.saveImageTriggered
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image in
+                guard let self = self else { return }
+                self.saveImage(image: image)
+            }
+            .store(in: &cancellables)
+        
+        output.shareImageTriggered
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image in
+                guard let self = self else { return }
+                self.shareImage(image: image)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func saveImage(image: UIImage) {
+        SaveImageManager.shared.saveImage(image: image)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    break
+                }
+            } receiveValue: { success in
+                if success {
+                    self.alert(
+                        title: "사진 저장 완료",
+                        message: "앨범에 사진이 저장 완료 되었습니다.",
+                        actions: [.init(title: "확인", style: .default)])
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func shareImage(image: UIImage) {
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(activityViewController, animated: true)
     }
 }

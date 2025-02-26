@@ -91,7 +91,7 @@ final class HistoryView: BaseView {
     }
     
     var shareButtonPublisher: AnyPublisher<Void, Never> {
-        return saveImageButton
+        return shareImageButton
             .controlPublisher(for: .touchUpInside)
             .map { _ in return () }
             .eraseToAnyPublisher()
