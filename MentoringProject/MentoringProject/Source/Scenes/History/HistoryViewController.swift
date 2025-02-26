@@ -36,6 +36,8 @@ final class HistoryViewController: BaseViewController {
     
     override func bindViewModel() {
         let input = HistoryViewModel.Input(viewDidLoad: Just(()).eraseToAnyPublisher(),
+                                           saveButtonTapped: rootView.saveButtonPublisher,
+                                           shareButtonTapped: rootView.shareButtonPublisher,
                                            cellTapped: rootView.cellSelection,
                                            scrollPageChanged: rootView.scrollPage)
         

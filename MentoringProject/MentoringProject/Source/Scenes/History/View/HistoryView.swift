@@ -83,6 +83,20 @@ final class HistoryView: BaseView {
         return calendarView.scrollPage
     }
     
+    var saveButtonPublisher: AnyPublisher<Void, Never> {
+        return saveImageButton
+            .controlPublisher(for: .touchUpInside)
+            .map { _ in return () }
+            .eraseToAnyPublisher()
+    }
+    
+    var shareButtonPublisher: AnyPublisher<Void, Never> {
+        return saveImageButton
+            .controlPublisher(for: .touchUpInside)
+            .map { _ in return () }
+            .eraseToAnyPublisher()
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

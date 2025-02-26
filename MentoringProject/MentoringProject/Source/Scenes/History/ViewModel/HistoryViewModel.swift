@@ -26,6 +26,8 @@ final class HistoryViewModel: BaseViewModelType {
     
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
+        let saveButtonTapped: AnyPublisher<Void, Never>
+        let shareButtonTapped: AnyPublisher<Void, Never>
         let cellTapped: AnyPublisher<IndexPath?, Never>
         let scrollPageChanged: AnyPublisher<Int, Never>
     }
