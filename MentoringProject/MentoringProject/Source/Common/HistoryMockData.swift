@@ -8,6 +8,9 @@
 import Foundation
 
 struct HistoryMockData {
+    static let plisaString = "어른이 되는 것이 끔찍한 이유는 아무도 우리에게 관심이 없고, 앞으로는 스스로 모든 일을 처리하고 세상이 어떤 식으로 돌아가는지 파악해야 한다는 것을 깨닫는 순간이 찾아오기 때문이다."
+    
+    
     static let data: [Double: HistoryModel] = [
         1738368000: HistoryModel(date: "1738368000", wpm: 738, acc: 45, text: "삶이 있는 한 희망은 있다. – 키케로 오늘 최선을 다하면 내일이 달라진다. – 오프라 윈프리", title: "도전의 시작", author: "김철수"),
         1738454400: HistoryModel(date: "1738454400", wpm: 425, acc: 80, text: "성공이란 끊임없이 배우고 도전하는 것이다. – 빌 게이츠", title: "꾸준함의 힘", author: "이영희"),

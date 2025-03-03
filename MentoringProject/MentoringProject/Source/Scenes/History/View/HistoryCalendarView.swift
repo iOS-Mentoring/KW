@@ -153,15 +153,8 @@ extension HistoryCalendarView: UICollectionViewDataSource {
         
         let isSelected = viewModel.isSelectedDate(date: date)
         
-        var isDot = false
-        
-        if isSelected {
-            let hasData = viewModel.hasData(date: date)
-            isDot = hasData
-        } else {
-            isDot = false
-        }
-        
+        let isDot = viewModel.hasData(date: date)
+       
         cell.configurData(day: dayStr, isSelected: isSelected, isDot: isDot)
         
         return cell
